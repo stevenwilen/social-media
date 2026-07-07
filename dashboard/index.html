@@ -175,6 +175,10 @@
   .gate-card button:hover { background: var(--navy-2); }
   .gate-err { color: #c0392b; font-size: .82rem; margin-top: 12px; }
 
+  /* Drive folder button */
+  .drive-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; background: var(--gold); color: #2a2000; font-weight: 700; text-decoration: none; padding: 8px 16px; border-radius: 999px; font-size: .85rem; border: 0; cursor: pointer; }
+  .drive-btn:hover { background: #d4b673; }
+
   @media (max-width: 640px) {
     .cal-cell { min-height: 58px; }
     .card { grid-template-columns: 64px 1fr; }
@@ -199,6 +203,7 @@
     <div class="brand serif"><b>Veronica Wilen</b>, Realtor</div>
     <div class="tagline" id="tagline"></div>
     <div class="meta" id="headMeta"></div>
+    <a class="drive-btn" href="https://drive.google.com/drive/folders/1Y3iXRf26PWAWQyGIQLJbU2LW5CH7cj58" target="_blank" rel="noopener">📁 Open the Drive folder</a>
   </div>
 </header>
 
@@ -242,6 +247,7 @@
 const SUPA_URL = "https://blqlgjpgdgbqrsqthbym.supabase.co";
 const SUPA_KEY = "sb_publishable_lLo3bBOWffNh6U48zewYTQ_jG8MhuLW";
 const REVIEW_TABLE = "vw_post_reviews";
+const DRIVE_URL = "https://drive.google.com/drive/folders/1Y3iXRf26PWAWQyGIQLJbU2LW5CH7cj58";
 
 const PILLARS = {
   "listings":       { label: "Listing",      desc: "A property she represents (auto-built from the Drive folder)" },
@@ -374,6 +380,7 @@ function renderNeeds() {
         <span class="what">${p.needs || p.hook}</span></li>`
     ).join("") + "</ul>";
   }
+  html += `<a class="drive-btn" href="${DRIVE_URL}" target="_blank" rel="noopener">📁 Open the Drive folder to add material</a>`;
   el.innerHTML = html;
 }
 
