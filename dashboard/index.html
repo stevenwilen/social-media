@@ -163,6 +163,17 @@
 
   footer { text-align: center; color: var(--muted); font-size: .78rem; padding: 26px 20px 40px; }
 
+  /* Password gate */
+  .gate { position: fixed; inset: 0; background: var(--navy); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+  .gate.show { display: flex; }
+  .gate-card { background: var(--paper); border-radius: 16px; padding: 32px 28px; width: 100%; max-width: 340px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.35); border-top: 4px solid var(--gold); }
+  .gate-brand { font-size: 1.5rem; color: var(--navy); }
+  .gate-sub { color: var(--gold-dark); font-size: .74rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 22px; }
+  .gate-card input { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 1rem; margin-bottom: 12px; font-family: inherit; }
+  .gate-card button { width: 100%; padding: 12px; background: var(--navy); color: #fff; border: 0; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+  .gate-card button:hover { background: var(--navy-2); }
+  .gate-err { color: #c0392b; font-size: .82rem; margin-top: 12px; }
+
   @media (max-width: 640px) {
     .cal-cell { min-height: 58px; }
     .card { grid-template-columns: 64px 1fr; }
@@ -172,6 +183,16 @@
 </style>
 </head>
 <body>
+<div id="gate" class="gate">
+  <form class="gate-card" id="gateForm">
+    <div class="gate-brand serif">Veronica Wilen</div>
+    <div class="gate-sub">Content Board</div>
+    <input type="password" id="gatePw" placeholder="Enter password" autocomplete="current-password" autofocus />
+    <button type="submit">Unlock</button>
+    <div class="gate-err" id="gateErr" hidden>Incorrect password. Try again.</div>
+  </form>
+</div>
+
 <header class="app">
   <div class="wrap">
     <div class="brand serif"><b>Veronica Wilen</b>, Realtor</div>
@@ -246,7 +267,22 @@ const statusColor = (s) => cssVar("--status-" + s) || "#666";
 let PLAN = null;
 let REVIEWS = {}; // post_id -> { status, note }
 
-boot();
+// --- Simple password gate (keeps the board private to Steven + Veronica) ---
+// To change the password, ask Claude to update PW_HASH (it's the SHA-256 of the password).
+const PW_HASH = "952c64fa9306450897ec0008dbe428ce2cf48074fc31d002c78feb63da577fbc";
+async function sha256(s){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function initGate(){
+  if (localStorage.getItem('vw_gate') === PW_HASH) { boot(); return; }
+  const gate = document.getElementById('gate');
+  gate.classList.add('show');
+  document.getElementById('gateForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const h = await sha256(document.getElementById('gatePw').value);
+    if (h === PW_HASH) { localStorage.setItem('vw_gate', PW_HASH); gate.classList.remove('show'); boot(); }
+    else { document.getElementById('gateErr').hidden = false; }
+  });
+}
+initGate();
 async function boot() {
   try {
     PLAN = await fetch("plan.json?v=" + Date.now()).then(r => r.json());
