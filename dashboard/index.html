@@ -269,7 +269,7 @@ let REVIEWS = {}; // post_id -> { status, note }
 
 // --- Simple password gate (keeps the board private to Steven + Veronica) ---
 // To change the password, ask Claude to update PW_HASH (it's the SHA-256 of the password).
-const PW_HASH = "952c64fa9306450897ec0008dbe428ce2cf48074fc31d002c78feb63da577fbc";
+const PW_HASH = "592fbed6f4ef4a643b0c5dec00a9a32f69a4027aedb972265cd9237b7b31d564";
 async function sha256(s){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 function initGate(){
   if (localStorage.getItem('vw_gate') === PW_HASH) { boot(); return; }
