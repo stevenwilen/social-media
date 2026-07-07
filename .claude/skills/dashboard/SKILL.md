@@ -71,12 +71,19 @@ Rules:
 Veronica reviews the plan **in the dashboard**. Each proposed post has **✓ Approve** and
 **✏️ Request change** buttons; her choice saves to Supabase and shows live on the board.
 
-- **Backend:** Supabase project **`zkgjmzxplqplxhsyhiui`** ("Advisor Outreach"), table
-  **`public.vw_post_reviews`** (columns: `post_id`, `status` ∈ `pending|approved|change-requested`,
+- **Backend:** **Steven's own Supabase project** — URL `https://blqlgjpgdgbqrsqthbym.supabase.co`,
+  table **`public.vw_post_reviews`** (columns: `post_id`, `status` ∈ `pending|approved|change-requested`,
   `note`, `plan_generated_at`, `reviewer`, `updated_at`). The dashboard reads/writes it directly with
-  the public anon key + RLS (safe: the key only grants access to this one table).
-- **Read her decisions** (before scheduling) with the Supabase MCP:
-  `select post_id, status, note from public.vw_post_reviews;` on project `zkgjmzxplqplxhsyhiui`.
+  the public **publishable key** `sb_publishable_lLo3bBOWffNh6U48zewYTQ_jG8MhuLW` + RLS (safe: the key
+  only grants access to this one table; it's already embedded in `dashboard/index.html`).
+- ⚠️ **This project is NOT on the connected Supabase MCP** (that MCP is a different/agency account —
+  do NOT use it for reviews). Read her decisions over REST instead, e.g.:
+  ```
+  curl -s "https://blqlgjpgdgbqrsqthbym.supabase.co/rest/v1/vw_post_reviews?select=post_id,status,note" \
+    -H "apikey: sb_publishable_lLo3bBOWffNh6U48zewYTQ_jG8MhuLW" \
+    -H "Authorization: Bearer sb_publishable_lLo3bBOWffNh6U48zewYTQ_jG8MhuLW"
+  ```
+  For schema changes (rare), Steven runs SQL in his Supabase SQL Editor — we don't have admin/MCP access.
 - **Hard rule — only APPROVED posts get scheduled.** When the user says "schedule the approved posts":
   1. Query `vw_post_reviews`.
   2. Schedule (via content-manager) **only** posts whose `status = 'approved'`.

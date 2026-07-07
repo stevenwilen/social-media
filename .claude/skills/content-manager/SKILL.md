@@ -63,9 +63,9 @@ publish now, schedule, edit, or discard. **Never publish or schedule without exp
 Use **`blotato_create_post`** (accountId + platform + text + platform fields from Step 0).
 
 **Approval gate (when posts came through the dashboard review flow):** before scheduling a batch,
-read Veronica's decisions from Supabase (`select post_id, status, note from public.vw_post_reviews;`
-on project `zkgjmzxplqplxhsyhiui`) — see the **dashboard** skill. Schedule **only** posts with
-`status = 'approved'`. For `change-requested`, redraft using her `note` and re-surface for review;
+read Veronica's decisions from Steven's Supabase over REST (see the **dashboard** skill for the exact
+`curl` — table `vw_post_reviews` at `blqlgjpgdgbqrsqthbym.supabase.co`; NOT the connected Supabase MCP).
+Schedule **only** posts with `status = 'approved'`. For `change-requested`, redraft using her `note` and re-surface for review;
 never schedule it. Report which posts are still `pending`. (A direct "post this now" from the user is
 its own explicit approval and doesn't need the dashboard.)
 
