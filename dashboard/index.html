@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Veronica Wilen · Social Content Board</title>
+<style>
+  :root {
+    --navy: #1b2a4a;
+    --navy-2: #2b3d63;
+    --gold: #c6a15b;
+    --gold-dark: #a8853f;
+    --cream: #f7f4ef;
+    --paper: #ffffff;
+    --ink: #23262e;
+    --muted: #6b7280;
+    --line: #e7e2d8;
+    --shadow: 0 1px 3px rgba(27,42,74,.08), 0 8px 24px rgba(27,42,74,.06);
+
+    --pillar-listings: #c6a15b;
+    --pillar-market-update: #2e4a7d;
+    --pillar-development: #2f8f83;
+    --pillar-community: #c86b5c;
+    --pillar-lifestyle: #6b8e5a;
+    --pillar-video: #7b5ea7;
+
+    --status-scheduled: #2f8f6a;
+    --status-proposed: #2e4a7d;
+    --status-needs-input: #c9822a;
+    --status-posted: #6b7280;
+    --status-draft: #8a8f98;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .serif { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; }
+  a { color: var(--navy-2); }
+
+  /* Header */
+  header.app {
+    background: var(--navy);
+    color: #fff;
+    padding: 22px 20px 18px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.app .brand { font-size: 1.5rem; letter-spacing: .3px; }
+  header.app .brand b { color: var(--gold); font-weight: 600; }
+  header.app .tagline { color: #c9d2e2; font-style: italic; font-size: .92rem; margin-top: 2px; }
+  header.app .meta { color: #aab6cc; font-size: .8rem; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  header.app .meta span b { color: #e7ecf5; font-weight: 600; }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 20px; }
+
+  .sample-note {
+    background: #fff8e8; border: 1px solid #ecd9a6; color: #7a5f1f;
+    border-radius: 10px; padding: 10px 14px; font-size: .85rem; margin-bottom: 18px;
+  }
+
+  /* Needs panel */
+  .needs {
+    background: var(--paper); border: 1px solid var(--line); border-left: 5px solid var(--status-needs-input);
+    border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; box-shadow: var(--shadow);
+  }
+  .needs h2 { margin: 0 0 4px; font-size: 1.05rem; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+  .needs .sub { color: var(--muted); font-size: .85rem; margin-bottom: 12px; }
+  .needs ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .needs li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; background: #fbf9f4; border: 1px solid var(--line); border-radius: 9px; }
+  .needs li .when { flex: 0 0 auto; font-weight: 600; color: var(--navy); font-size: .82rem; min-width: 92px; }
+  .needs li .what { font-size: .88rem; }
+  .needs .allclear { color: var(--status-scheduled); font-size: .9rem; }
+
+  /* Controls */
+  .controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .toggle { display: inline-flex; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 3px; box-shadow: var(--shadow); }
+  .toggle button {
+    border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; cursor: pointer;
+    font-size: .88rem; color: var(--muted); font-weight: 600;
+  }
+  .toggle button.active { background: var(--navy); color: #fff; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: .76rem; color: var(--muted); }
+  .legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+
+  /* Calendar */
+  .cal-month { margin-bottom: 22px; }
+  .cal-month h3 { color: var(--navy); font-size: 1.1rem; margin: 0 0 10px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .cal-grid .dow { text-align: center; font-size: .72rem; color: var(--muted); font-weight: 600; padding-bottom: 4px; text-transform: uppercase; letter-spacing: .5px; }
+  .cal-cell { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; min-height: 78px; padding: 6px; }
+  .cal-cell.empty { background: transparent; border: 0; }
+  .cal-cell .num { font-size: .74rem; color: var(--muted); font-weight: 600; }
+  .cal-cell.today .num { color: var(--gold-dark); }
+  .chip {
+    display: block; width: 100%; text-align: left; border: 0; cursor: pointer; margin-top: 4px;
+    border-radius: 6px; padding: 4px 6px; font-size: .72rem; color: #fff; line-height: 1.25;
+    border-left: 3px solid rgba(255,255,255,.55);
+  }
+  .chip .plat { font-size: .64rem; opacity: .9; display: block; letter-spacing: .3px; text-transform: uppercase; }
+
+  /* List */
+  .list { display: grid; gap: 12px; }
+  .card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+    box-shadow: var(--shadow); cursor: pointer; display: grid; grid-template-columns: 96px 1fr auto; gap: 14px; align-items: start;
+  }
+  .card:hover { border-color: var(--gold); }
+  .card .date { text-align: center; }
+  .card .date .d { font-size: 1.5rem; font-weight: 700; color: var(--navy); font-family: Georgia, serif; line-height: 1; }
+  .card .date .m { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+  .card .date .t { font-size: .68rem; color: var(--muted); margin-top: 3px; }
+  .card .body .hook { font-weight: 600; font-size: 1rem; color: var(--ink); margin: 2px 0 6px; }
+  .card .body .tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .card .body .media-note { color: var(--muted); font-size: .78rem; margin-top: 8px; }
+  .pill { font-size: .7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: #fff; }
+  .pill.pillar { }
+  .platicons { display: flex; gap: 4px; }
+  .platicon { font-size: .66rem; font-weight: 700; color: #fff; width: 20px; height: 20px; border-radius: 5px; display: grid; place-items: center; }
+  .fb { background: #1877f2; } .ig { background: #d6249f; } .yt { background: #ff0000; }
+  .status { font-size: .7rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+
+  /* Detail modal */
+  .overlay { position: fixed; inset: 0; background: rgba(27,42,74,.5); display: none; align-items: flex-start; justify-content: center; padding: 24px; overflow-y: auto; z-index: 50; }
+  .overlay.open { display: flex; }
+  .modal { background: var(--paper); border-radius: 14px; max-width: 640px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.3); overflow: hidden; }
+  .modal .m-head { background: var(--navy); color: #fff; padding: 18px 20px; }
+  .modal .m-head .row { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+  .modal .m-head h3 { margin: 6px 0 0; font-size: 1.2rem; }
+  .modal .m-head .close { background: rgba(255,255,255,.15); border: 0; color: #fff; font-size: 1.1rem; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; flex: 0 0 auto; }
+  .modal .m-body { padding: 20px; }
+  .modal .m-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .cap-block { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+  .cap-block .cap-head { padding: 8px 12px; font-size: .76rem; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; color: #fff; }
+  .cap-block .cap-text { padding: 12px; white-space: pre-wrap; font-size: .9rem; }
+  .cap-empty { color: var(--muted); font-style: italic; }
+  .flags { background: #fff8e8; border: 1px solid #ecd9a6; border-radius: 10px; padding: 10px 12px; font-size: .82rem; color: #7a5f1f; margin-top: 6px; }
+  .flags b { display: block; margin-bottom: 4px; }
+  .needbox { background: #fdf0e2; border: 1px solid #f0cfa2; border-radius: 10px; padding: 12px; font-size: .86rem; color: #7a4f1f; }
+
+  footer { text-align: center; color: var(--muted); font-size: .78rem; padding: 26px 20px 40px; }
+
+  @media (max-width: 640px) {
+    .cal-grid .dow:nth-child(n) { font-size: .6rem; }
+    .cal-cell { min-height: 58px; }
+    .card { grid-template-columns: 64px 1fr; }
+    .card .status { grid-column: 2; justify-self: start; margin-top: 4px; }
+    header.app .brand { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="wrap">
+    <div class="brand serif"><b>Veronica Wilen</b>, Realtor</div>
+    <div class="tagline" id="tagline"></div>
+    <div class="meta" id="headMeta"></div>
+  </div>
+</header>
+
+<main>
+  <div class="sample-note" id="sampleNote" hidden>
+    👀 <b>Sample plan.</b> This is example content so you can see how the board looks. Real posts appear
+    here once you run the content system.
+  </div>
+
+  <section class="needs" id="needsPanel"></section>
+
+  <div class="controls">
+    <div class="toggle" role="tablist">
+      <button id="tabCal" class="active">📅 Calendar</button>
+      <button id="tabList">📋 List</button>
+    </div>
+    <div class="legend" id="pillarLegend"></div>
+  </div>
+
+  <section id="calView"></section>
+  <section id="listView" hidden></section>
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<footer id="foot"></footer>
+
+<script>
+const PILLARS = {
+  "listings":       { label: "Listing",      desc: "A property she represents (auto-built from the Drive folder)" },
+  "market-update":  { label: "Market Update", desc: "Local prices, inventory & trends" },
+  "development":    { label: "Development",   desc: "St. Johns County growth & new projects" },
+  "community":      { label: "Community",     desc: "Local events & things to do" },
+  "lifestyle":      { label: "Lifestyle",     desc: "Neighborhood & area spotlights" },
+  "video":          { label: "Video",         desc: "Repurposed from a YouTube video" }
+};
+const STATUS = {
+  "scheduled":   { label: "Scheduled",   desc: "Booked on the calendar, ready to go out" },
+  "proposed":    { label: "Proposed",    desc: "Drafted by the system — awaiting your approval" },
+  "needs-input": { label: "Needs input", desc: "Waiting on something from you or your mom" },
+  "posted":      { label: "Posted",      desc: "Already live" },
+  "draft":       { label: "Draft",       desc: "Work in progress" }
+};
+const PLATFORMS = { facebook: {a:"FB", c:"fb"}, instagram: {a:"IG", c:"ig"}, youtube: {a:"YT", c:"yt"} };
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const pillarColor = (p) => cssVar("--pillar-" + p) || "#666";
+const statusColor = (s) => cssVar("--status-" + s) || "#666";
+
+let PLAN = null;
+
+fetch("plan.json?v=" + Date.now())
+  .then(r => r.json())
+  .then(plan => { PLAN = plan; render(); })
+  .catch(err => {
+    document.querySelector("main").innerHTML =
+      '<div class="sample-note">Could not load plan.json. If you are opening this file directly, run it through a local server or view the deployed Vercel link.</div>';
+  });
+
+function render() {
+  const b = PLAN.brand || {};
+  document.getElementById("tagline").textContent = b.tagline || "";
+  document.getElementById("headMeta").innerHTML = [
+    b.brokerage ? `<span>${b.brokerage}</span>` : "",
+    PLAN.cadence ? `<span>🗓 <b>${PLAN.cadence}</b></span>` : "",
+    PLAN.window && PLAN.window.label ? `<span>Window: <b>${PLAN.window.label}</b></span>` : "",
+    PLAN.generatedAt ? `<span>Updated ${fmtDate(PLAN.generatedAt)}</span>` : ""
+  ].join("");
+  document.getElementById("sampleNote").hidden = !PLAN.isSample;
+
+  renderNeeds();
+  renderPillarLegend();
+  renderCalendar();
+  renderList();
+  document.getElementById("foot").innerHTML =
+    `${b.name || ""} · ${b.phone || ""} · ${b.website || ""}<br>Content board — view only. Approvals happen in Claude Code.`;
+}
+
+function renderNeeds() {
+  const el = document.getElementById("needsPanel");
+  const needs = PLAN.posts.filter(p => p.status === "needs-input");
+  let html = `<h2>📌 Needs from you</h2><div class="sub">The only things blocking the plan. Everything else the system handles.</div>`;
+  if (!needs.length) {
+    html += `<div class="allclear">✅ Nothing needed right now — the plan is unblocked.</div>`;
+  } else {
+    html += "<ul>" + needs.map(p =>
+      `<li><span class="when">${fmtShort(p.date)}<br><span style="color:var(--muted);font-weight:400">${PILLARS[p.pillar]?.label||p.pillar}</span></span>
+        <span class="what">${p.needs || p.hook}</span></li>`
+    ).join("") + "</ul>";
+  }
+  el.innerHTML = html;
+}
+
+function renderPillarLegend() {
+  const el = document.getElementById("pillarLegend");
+  el.innerHTML = Object.keys(PILLARS).map(k =>
+    `<span title="${PILLARS[k].desc}"><span class="dot" style="background:${pillarColor(k)}"></span>${PILLARS[k].label}</span>`
+  ).join("");
+}
+
+function postsByDate() {
+  const map = {};
+  PLAN.posts.forEach(p => { (map[p.date] = map[p.date] || []).push(p); });
+  return map;
+}
+
+function renderCalendar() {
+  const view = document.getElementById("calView");
+  const map = postsByDate();
+  // Determine months to show from the posts / window
+  const dates = PLAN.posts.map(p => p.date).sort();
+  const startD = new Date((PLAN.window?.start || dates[0]) + "T12:00:00");
+  const endD = new Date((PLAN.window?.end || dates[dates.length-1]) + "T12:00:00");
+  const todayStr = new Date().toISOString().slice(0,10);
+
+  let html = "";
+  let cur = new Date(startD.getFullYear(), startD.getMonth(), 1);
+  const last = new Date(endD.getFullYear(), endD.getMonth(), 1);
+  while (cur <= last) {
+    const y = cur.getFullYear(), m = cur.getMonth();
+    html += `<div class="cal-month"><h3>${MONTHS[m]} ${y}</h3><div class="cal-grid">`;
+    ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d => html += `<div class="dow">${d}</div>`);
+    const firstDow = new Date(y, m, 1).getDay();
+    const daysIn = new Date(y, m+1, 0).getDate();
+    for (let i = 0; i < firstDow; i++) html += `<div class="cal-cell empty"></div>`;
+    for (let day = 1; day <= daysIn; day++) {
+      const ds = `${y}-${String(m+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      const isToday = ds === todayStr;
+      const chips = (map[ds] || []).map(p => {
+        const plats = p.platforms.map(pl => PLATFORMS[pl]?.a).join(" · ");
+        return `<button class="chip" style="background:${pillarColor(p.pillar)}" onclick="openPost('${p.id}')">
+                  ${p.hook}<span class="plat">${plats}</span></button>`;
+      }).join("");
+      html += `<div class="cal-cell${isToday ? " today" : ""}"><div class="num">${day}</div>${chips}</div>`;
+    }
+    html += `</div></div>`;
+    cur.setMonth(cur.getMonth() + 1);
+  }
+  view.innerHTML = html;
+}
+
+function renderList() {
+  const view = document.getElementById("listView");
+  const posts = [...PLAN.posts].sort((a,b) => a.date.localeCompare(b.date));
+  view.innerHTML = `<div class="list">` + posts.map(p => {
+    const dt = new Date(p.date + "T12:00:00");
+    const plats = p.platforms.map(pl =>
+      `<span class="platicon ${PLATFORMS[pl]?.c}">${PLATFORMS[pl]?.a}</span>`).join("");
+    return `<div class="card" onclick="openPost('${p.id}')">
+      <div class="date"><div class="d">${dt.getDate()}</div><div class="m">${MONTHS[dt.getMonth()].slice(0,3)}</div><div class="t">${p.time||""}</div></div>
+      <div class="body">
+        <div class="hook">${p.hook}</div>
+        <div class="tags">
+          <span class="pill pillar" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>
+          <span class="platicons">${plats}</span>
+        </div>
+        ${p.media?.label ? `<div class="media-note">🎬 ${p.media.label}</div>` : ""}
+      </div>
+      <span class="status" style="background:${hexA(statusColor(p.status),.14)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>
+    </div>`;
+  }).join("") + `</div>`;
+}
+
+function openPost(id) {
+  const p = PLAN.posts.find(x => x.id === id);
+  if (!p) return;
+  const dt = new Date(p.date + "T12:00:00");
+  const meta = [
+    `<span class="pill pillar" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>`,
+    `<span class="status" style="background:${hexA(statusColor(p.status),.16)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>`,
+    ...p.platforms.map(pl => `<span class="platicon ${PLATFORMS[pl]?.c}">${PLATFORMS[pl]?.a}</span>`)
+  ].join(" ");
+
+  const capOrder = ["facebook","instagram","youtube"];
+  let caps = "";
+  capOrder.forEach(pl => {
+    if (!p.platforms.includes(pl)) return;
+    let val = p.captions ? p.captions[pl] : null;
+    let text;
+    if (val == null) text = `<span class="cap-empty">Not written yet — see "Needs from you" below.</span>`;
+    else if (typeof val === "object") text = `<b>Title:</b> ${val.title||""}\n\n${val.description||""}`;
+    else text = val;
+    const color = pl === "facebook" ? "#1877f2" : pl === "instagram" ? "#d6249f" : "#ff0000";
+    caps += `<div class="cap-block"><div class="cap-head" style="background:${color}">${pl}</div><div class="cap-text">${text}</div></div>`;
+  });
+
+  const flags = (p.flags && p.flags.length)
+    ? `<div class="flags"><b>⚠️ Before posting:</b>${p.flags.map(f=>`• ${f}`).join("<br>")}</div>` : "";
+  const need = p.needs ? `<div class="needbox"><b>📌 Needs from you:</b> ${p.needs}</div>` : "";
+
+  document.getElementById("modal").innerHTML = `
+    <div class="m-head">
+      <div class="row">
+        <div>
+          <div style="font-size:.78rem;color:#c9d2e2">${dt.toLocaleDateString('en-US',{weekday:'long'})}, ${MONTHS[dt.getMonth()]} ${dt.getDate()} · ${p.time||""}</div>
+          <h3>${p.hook}</h3>
+        </div>
+        <button class="close" onclick="closeModal()">✕</button>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="m-meta">${meta}</div>
+      ${p.media?.label ? `<div class="media-note" style="margin-bottom:14px;color:var(--muted);font-size:.85rem">🎬 Media: ${p.media.label}</div>` : ""}
+      ${need}
+      ${caps}
+      ${flags}
+    </div>`;
+  document.getElementById("overlay").classList.add("open");
+}
+function closeModal() { document.getElementById("overlay").classList.remove("open"); }
+document.getElementById("overlay").addEventListener("click", e => { if (e.target.id === "overlay") closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+document.getElementById("tabCal").addEventListener("click", () => switchView("cal"));
+document.getElementById("tabList").addEventListener("click", () => switchView("list"));
+function switchView(v) {
+  document.getElementById("tabCal").classList.toggle("active", v==="cal");
+  document.getElementById("tabList").classList.toggle("active", v==="list");
+  document.getElementById("calView").hidden = v!=="cal";
+  document.getElementById("listView").hidden = v!=="list";
+}
+
+function fmtDate(s){ const d=new Date(s+"T12:00:00"); return `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}`; }
+function fmtShort(s){ const d=new Date(s+"T12:00:00"); return `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}`; }
+function hexA(hex, a){ hex=hex.replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join(''); const n=parseInt(hex,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+</script>
+</body>
+</html>

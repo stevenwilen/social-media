@@ -1,0 +1,11 @@
+# Never upload secrets or the Claude/skill internals to Vercel.
+# Only the dashboard/ folder needs to ship.
+.mcp.json
+.env
+.env.local
+.env.*
+.claude/
+brand/
+content-plans/
+*.md
+!dashboard/**
