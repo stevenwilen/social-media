@@ -159,6 +159,7 @@
   .rev-actions button { border: 0; border-radius: 9px; padding: 9px 16px; font-size: .86rem; font-weight: 700; cursor: pointer; color: #fff; }
   .btn-approve { background: var(--approve); }
   .btn-change { background: var(--change); }
+  .btn-undo { background: #6b7280; }
   .rev-hint { color: var(--muted); font-size: .76rem; margin-top: 8px; }
 
   footer { text-align: center; color: var(--muted); font-size: .78rem; padding: 26px 20px 40px; }
@@ -306,7 +307,7 @@ async function loadReviews() {
 
 async function submitReview(postId, status) {
   const noteEl = document.getElementById("reviewNote");
-  const note = noteEl ? noteEl.value.trim() : "";
+  const note = (status === "pending") ? "" : (noteEl ? noteEl.value.trim() : "");
   const actions = document.getElementById("reviewActions");
   if (actions) actions.innerHTML = "Saving…";
   const body = [{ post_id: postId, status, note: note || null, plan_generated_at: PLAN.generatedAt || null, reviewer: "veronica" }];
@@ -495,8 +496,9 @@ function openPost(id) {
         <div id="reviewActions" class="rev-actions">
           <button class="btn-approve" onclick="submitReview('${p.id}','approved')">✓ Approve</button>
           <button class="btn-change" onclick="submitReview('${p.id}','change-requested')">✏️ Request change</button>
+          ${r ? `<button class="btn-undo" onclick="submitReview('${p.id}','pending')">↩ Undo</button>` : ""}
         </div>
-        <div class="rev-hint">Your choice saves instantly and shows up for Steven. Only approved posts get scheduled.</div>
+        <div class="rev-hint">You can change your mind anytime — click the other button to switch, or Undo to clear it back to unreviewed. Only approved posts get scheduled.</div>
       </div>`;
   }
 
