@@ -55,6 +55,8 @@ Sounds like a trusted local friend who happens to be a seasoned expert — never
 - Don't overpromise ("guaranteed," "best price ever," "can't lose").
 - Don't stuff jargon (DOM, contingency, escalation clause) without a quick explanation.
 - Don't write walls of text; use short paragraphs and line breaks.
+- **Don't use em dashes (—) or en dashes (–)** anywhere. Use periods, commas, or parentheses instead.
+- Match the tone she actually uses on veronicawilen.com and her real profile/bio descriptions.
 
 **Voice samples (source phrases from her website — use as *reference*, not templates):**
 ```

@@ -35,6 +35,16 @@ Any content you produce under this skill must be:
 6. **Present clearly** — group drafts by platform, number them, keep formatting clean so the user
    can quickly pick, edit, or approve for posting/scheduling.
 
+## Formatting mechanics (HARD rules — apply to every caption, title, and description)
+- **Never use em dashes (—) or en dashes (–) as punctuation.** Rewrite with a period, comma, colon,
+  or parentheses, or split into two sentences. This applies to ALL generated text everywhere
+  (captions, YouTube titles/descriptions, dashboard hooks). A hyphen in a real compound word
+  (e.g. "master-planned") is fine; a dash used as a pause is not.
+- **Match the tone she actually uses** on veronicawilen.com and her real online profile/bio
+  descriptions — warm, personable, service-minded. When her real captions are available, mirror
+  their rhythm and word choice over generic "marketing" phrasing.
+- Keep it plain-spoken: short sentences, natural line breaks, no walls of text.
+
 ## Compliance gate (check every draft before showing it)
 Reject/rewrite if the copy:
 - expresses a preference/limitation about people ("perfect for families," "safe area,"
@@ -44,11 +54,11 @@ Reject/rewrite if the copy:
 Add brokerage/license disclosure and "Equal Housing Opportunity" where the profile/state requires it.
 
 ## Tone quick-reference
-> ✅ "Inventory in [area] is up 12% this spring — which means buyers finally have room to negotiate.
+> ✅ "Inventory in [area] is up 12% this spring, which means buyers finally have room to negotiate.
 > Here's what that shifts for you. 👇"
 >
 > ❌ "🔥🔥 HOT NEW LISTING!! This home is PERFECT for a growing family in our safe, exclusive
-> neighborhood — DM NOW before it's GONE!!!"
+> neighborhood. DM NOW before it's GONE!!!" (hype, Fair-Housing violations, and note: no dashes)
 
 ## Working defaults (per the video's token tips)
 For routine drafting/scheduling, this work runs well on **Sonnet, low effort, extended thinking off**.

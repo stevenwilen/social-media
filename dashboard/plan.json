@@ -8,7 +8,7 @@
   },
   "generatedAt": "2026-07-07",
   "isSample": true,
-  "window": { "label": "Jul 10 – 24, 2026", "start": "2026-07-10", "end": "2026-07-24" },
+  "window": { "label": "Jul 10 to 24, 2026", "start": "2026-07-10", "end": "2026-07-24" },
   "cadence": "Mon / Wed / Fri · 9:00 AM ET",
   "posts": [
     {
@@ -21,7 +21,7 @@
       "status": "scheduled",
       "media": { "type": "reel", "label": "Market stat reel (branded)" },
       "captions": {
-        "facebook": "Nocatee's June numbers are in — and if you own here, they're worth a look.\n\nThe median sale price held steady while homes spent a little longer on the market than this spring. Translation: buyers have a bit more room to breathe, and well-priced homes are still moving.\n\nCurious what your Nocatee home would list for in today's market? Send me a DM — happy to run the numbers for you.\n\nVeronica Wilen, Realtor · Christie's International Real Estate First Coast",
+        "facebook": "Nocatee's June numbers are in, and if you own here they're worth a look.\n\nThe median sale price held steady while homes spent a little longer on the market than they did this spring. In plain terms: buyers have a bit more room to breathe, and well-priced homes are still moving.\n\nCurious what your Nocatee home would list for in today's market? Send me a DM and I'll run the numbers for you.\n\nVeronica Wilen, Realtor · Christie's International Real Estate First Coast",
         "instagram": "Nocatee's June market snapshot 📊\n\nMedian price steady. Homes taking a touch longer to sell. Well-priced listings still moving.\n\nWondering what that means for YOUR home? DM me and I'll break it down.\n\n#Nocatee #NocateeRealEstate #PonteVedraBeach #StJohnsCounty #NortheastFlorida #realtor #housingmarket #NocateeLife"
       },
       "flags": ["VERIFY June median price + DOM before posting"],
@@ -35,9 +35,9 @@
       "pillar": "lifestyle",
       "hook": "What it's actually like to live in Nocatee",
       "status": "proposed",
-      "media": { "type": "image", "label": "Needs a photo (Splash Water Park / greenway)" },
+      "media": { "type": "image", "label": "Needs a photo (Splash Water Park or greenway)" },
       "captions": {
-        "facebook": "People ask me all the time what it's really like to live in Nocatee. Here's the short version:\n\nGolf carts to dinner. Miles of greenway trails. A water park the whole neighborhood treats like a backyard. And a farmers market that turns Saturday mornings into a community event.\n\nIt's less \"subdivision\" and more \"small town that happens to be brand new.\"\n\nThinking about a move to the area? I've lived here since 2016 — ask me anything. 👇",
+        "facebook": "People ask me all the time what it's really like to live in Nocatee. Here's the short version.\n\nGolf carts to dinner. Miles of greenway trails. A water park the whole neighborhood treats like a backyard. And a farmers market that turns Saturday mornings into a community event.\n\nIt feels less like a subdivision and more like a small town that happens to be brand new.\n\nThinking about a move to the area? I've lived here since 2016, so ask me anything. 👇",
         "instagram": "Living in Nocatee, in one post 🌴\n\n🚗 Golf carts everywhere\n🌳 Miles of greenway trails\n💦 Splash & Spray water parks\n🥕 Saturday farmers market\n\nI've called Nocatee home since 2016. Questions about the area? Drop them below.\n\n#Nocatee #NocateeLife #PonteVedraBeach #StJohnsCounty #FloridaLiving #MasterPlannedCommunity #realtor #relocation"
       },
       "flags": [],
@@ -51,10 +51,10 @@
       "pillar": "listings",
       "hook": "New listing (waiting on details)",
       "status": "needs-input",
-      "media": { "type": "reel", "label": "Branded reel — auto-built from listing photos" },
+      "media": { "type": "reel", "label": "Branded reel, auto-built from listing photos" },
       "captions": { "facebook": null, "instagram": null },
       "flags": [],
-      "needs": "Drop the new listing in the 'Steven – Social Media Listings' Drive folder — photos + a short note (address, price, beds/baths, sqft, status, highlights). The system will build the reel and captions automatically."
+      "needs": "Drop the new listing in the 'Steven – Social Media Listings' Drive folder: photos plus a short note (address, price, beds/baths, sqft, status, highlights). The system builds the reel and captions automatically."
     },
     {
       "id": "2026-07-20-development",
@@ -64,9 +64,9 @@
       "pillar": "development",
       "hook": "What's being built in St. Johns County right now",
       "status": "proposed",
-      "media": { "type": "image", "label": "Needs a photo (new construction / map graphic)" },
+      "media": { "type": "image", "label": "Needs a photo (new construction or map graphic)" },
       "captions": {
-        "facebook": "St. Johns County keeps growing — and if you're buying or selling here, the new development matters.\n\nA few things on my radar right now: continued build-out around Nocatee's Town Center, new retail along CR-210, and road improvements meant to ease the commute north.\n\nMore rooftops and amenities tend to support home values over time — but the details vary block by block. Wondering how it affects your street specifically? Let's talk.",
+        "facebook": "St. Johns County keeps growing, and if you're buying or selling here the new development matters.\n\nA few things on my radar right now: continued build-out around Nocatee's Town Center, new retail along CR-210, and road improvements meant to ease the commute north.\n\nMore rooftops and amenities tend to support home values over time, though the details vary block by block. Wondering how it affects your street specifically? Let's talk.",
         "instagram": "St. Johns County is still booming 🏗️\n\nOn my radar: Nocatee Town Center growth, new retail on CR-210, and road upgrades to ease the drive north.\n\nWhat it means for your home value depends on your exact neighborhood. Questions? DM me.\n\n#StJohnsCounty #Nocatee #PonteVedraBeach #NortheastFlorida #realestate #community #904"
       },
       "flags": ["VERIFY current development details before posting"],
@@ -80,10 +80,10 @@
       "pillar": "video",
       "hook": "Repurpose latest YouTube video",
       "status": "needs-input",
-      "media": { "type": "video", "label": "From a YouTube URL (Blotato scrapes transcript)" },
+      "media": { "type": "video", "label": "From a YouTube URL (Blotato scrapes the transcript)" },
       "captions": { "facebook": null, "instagram": null, "youtube": null },
       "flags": [],
-      "needs": "Send the YouTube URL of the video you want to repurpose, and the system will write FB + IG + YouTube captions from the transcript."
+      "needs": "Send the YouTube URL of the video you want to repurpose, and the system will write Facebook, Instagram, and YouTube captions from the transcript."
     },
     {
       "id": "2026-07-24-community",
@@ -93,7 +93,7 @@
       "pillar": "community",
       "hook": "Things to do on the First Coast this weekend",
       "status": "proposed",
-      "media": { "type": "image", "label": "Needs a photo (local event / St. Augustine)" },
+      "media": { "type": "image", "label": "Needs a photo (local event or St. Augustine)" },
       "captions": {
         "facebook": "Looking for something to do this weekend on the First Coast? A few local favorites:\n\n🎣 Morning at the beach before the crowds\n🍤 Dinner in St. Augustine's historic district\n🎶 Live music around Nocatee Town Center\n\nOne of my favorite parts of this area is that there's always something going on. What's your go-to weekend spot?",
         "instagram": "Weekend on the First Coast? ☀️\n\n🎣 Beach morning\n🍤 Dinner in old St. Augustine\n🎶 Live music at Nocatee Town Center\n\nWhat's your go-to around here? 👇\n\n#StAugustine #Nocatee #PonteVedraBeach #FirstCoast #FloridaLiving #thingstodo #904 #NortheastFlorida"
