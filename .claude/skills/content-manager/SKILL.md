@@ -1,6 +1,6 @@
 ---
 name: content-manager
-description: Veronica Wilen's end-to-end social-media workhorse. Use whenever the user wants to turn a source (a YouTube URL, article, TikTok, PDF, market report, listing info, a topic/idea, or a research question) into on-brand posts and then publish or schedule them across Facebook, Instagram, and YouTube via Blotato. Handles transcript/article extraction, platform-tailored captions, calendar-aware batch scheduling, and media. Calls the brand-voice skill for every caption.
+description: Veronica Wilen's end-to-end social-media workhorse. Use whenever the user wants to turn a source (a YouTube URL, article, TikTok, PDF, market report, listing info, a topic/idea, or a research question) into on-brand posts and then publish or schedule them across Facebook and Instagram via Blotato. YouTube is a video SOURCE only — we do not auto-publish to her YouTube channel. Handles transcript/article extraction, platform-tailored captions, calendar-aware batch scheduling, and media. Calls the brand-voice skill for every caption.
 ---
 
 # Content Manager — Veronica Wilen
@@ -38,12 +38,12 @@ Use **`blotato_create_source`** with the right `sourceType`
 - For a plain topic with no URL, skip extraction and write directly from the idea.
 
 ## Step 2 — Decide platforms & format
-Default targets: **Facebook + Instagram**. Add **YouTube** when there's a video to publish.
-Respect media rules (profile §5):
+Publishing targets are **Facebook + Instagram only.** We do **NOT** auto-publish to YouTube —
+Veronica manages her own channel. (A YouTube URL is a *source* to repurpose into FB/IG posts, per
+Step 1, never a destination.) Respect media rules (profile §5):
 - **Facebook** — text-forward hub; text-only is fine; media optional.
 - **Instagram** — **requires media** (reel/story). No media → either request it, or offer to
   generate a visual (`blotato_create_visual`). Don't silently drop IG.
-- **YouTube** — **requires a video file + title + privacyStatus**. Only when a video exists.
 
 Default output: **1 strong, platform-tailored caption per target platform per source.**
 If the user wants options ("give me 5 for Facebook"), produce variations.

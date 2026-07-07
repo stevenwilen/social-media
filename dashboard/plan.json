@@ -76,14 +76,14 @@
       "id": "2026-07-22-video",
       "date": "2026-07-22",
       "time": "9:00 AM ET",
-      "platforms": ["facebook", "instagram", "youtube"],
+      "platforms": ["facebook", "instagram"],
       "pillar": "video",
-      "hook": "Repurpose latest YouTube video",
+      "hook": "Turn her latest YouTube video into a post",
       "status": "needs-input",
       "media": { "type": "video", "label": "From a YouTube URL (Blotato scrapes the transcript)" },
-      "captions": { "facebook": null, "instagram": null, "youtube": null },
+      "captions": { "facebook": null, "instagram": null },
       "flags": [],
-      "needs": "Send the YouTube URL of the video you want to repurpose, and the system will write Facebook, Instagram, and YouTube captions from the transcript."
+      "needs": "If she wants to repurpose a video, send the YouTube URL and the system will write Facebook + Instagram posts from it. (We never post to her YouTube; she runs that herself.)"
     },
     {
       "id": "2026-07-24-community",

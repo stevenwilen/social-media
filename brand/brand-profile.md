@@ -92,7 +92,7 @@ use listings (1) and video (3) as they come. Aim ~70% value / 30% listings. Lean
 |---|---|---|---|
 | **Facebook** | "Veronica Wilen, Realtor" (Page) | `39814` (pageId `1048935065286772`) | Text-forward hub. Supports text, links, images, video. Longest-form captions live here. |
 | **Instagram** | `@veronicawilenrealtor` | `57031` | **Requires media** (reel or story). Visual/short-form, hashtag-heavy. No text-only posts. |
-| **YouTube** | Veronica Wilen | `42367` | **Requires video + title + privacyStatus.** Long-form + Shorts. |
+| **YouTube** | Veronica Wilen | `42367` | **SOURCE ONLY — we do NOT auto-publish to YouTube.** She manages her own channel. A YouTube URL she sends is used as *input*: Blotato scrapes the transcript to create Facebook/Instagram posts. |
 
 **She also has, but NOT yet connected to Blotato:** X/Twitter `@WilenRealtor`, LinkedIn
 (`/in/vwilen`). Connect them in Blotato → Settings → Accounts to unlock automated posting there.

@@ -53,7 +53,8 @@ Research rule: anything time-sensitive or numeric gets **verified and cited**, a
 are labeled "VERIFY before posting." Never state a stat you can't source.
 
 ## Step 5 — Draft everything (via content-manager + brand-voice)
-- Default targets **Facebook + Instagram** per slot (add YouTube only when publishing a video).
+- Targets are **Facebook + Instagram** only (we do NOT auto-publish to YouTube — she runs her own
+  channel; a YouTube URL is only ever a *source* to repurpose into FB/IG posts).
 - **Instagram needs media.** Decide per slot: if there's a video, use it; otherwise **propose a
   generated visual** (`blotato_create_visual` — a market-stat card, tip carousel, quote card, or
   neighborhood spotlight; browse `blotato_list_visual_templates`). If neither fits, flag "IG needs
