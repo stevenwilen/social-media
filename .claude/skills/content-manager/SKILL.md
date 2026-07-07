@@ -62,6 +62,13 @@ publish now, schedule, edit, or discard. **Never publish or schedule without exp
 ## Step 5 — Publish or schedule
 Use **`blotato_create_post`** (accountId + platform + text + platform fields from Step 0).
 
+**Approval gate (when posts came through the dashboard review flow):** before scheduling a batch,
+read Veronica's decisions from Supabase (`select post_id, status, note from public.vw_post_reviews;`
+on project `zkgjmzxplqplxhsyhiui`) — see the **dashboard** skill. Schedule **only** posts with
+`status = 'approved'`. For `change-requested`, redraft using her `note` and re-surface for review;
+never schedule it. Report which posts are still `pending`. (A direct "post this now" from the user is
+its own explicit approval and doesn't need the dashboard.)
+
 **Publish now (live, irreversible):** omit `scheduledTime`. Requires explicit user go-ahead
 naming the post. It polls ~20s; if still processing, poll `blotato_get_post_status`. Report the
 live link.

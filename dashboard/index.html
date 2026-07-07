@@ -29,6 +29,9 @@
     --status-needs-input: #c9822a;
     --status-posted: #6b7280;
     --status-draft: #8a8f98;
+
+    --approve: #2f8f6a;
+    --change: #c9822a;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
@@ -42,7 +45,6 @@
   h1, h2, h3, .serif { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; }
   a { color: var(--navy-2); }
 
-  /* Header */
   header.app {
     background: var(--navy);
     color: #fff;
@@ -53,8 +55,9 @@
   header.app .brand { font-size: 1.5rem; letter-spacing: .3px; }
   header.app .brand b { color: var(--gold); font-weight: 600; }
   header.app .tagline { color: #c9d2e2; font-style: italic; font-size: .92rem; margin-top: 2px; }
-  header.app .meta { color: #aab6cc; font-size: .8rem; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  header.app .meta { color: #aab6cc; font-size: .8rem; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items:center; }
   header.app .meta span b { color: #e7ecf5; font-weight: 600; }
+  header.app .review-count { background: var(--gold); color: #2a2000; font-weight: 700; padding: 2px 10px; border-radius: 999px; font-size: .76rem; }
 
   main { max-width: 1080px; margin: 0 auto; padding: 20px; }
 
@@ -63,7 +66,14 @@
     border-radius: 10px; padding: 10px 14px; font-size: .85rem; margin-bottom: 18px;
   }
 
-  /* Needs panel */
+  .howto {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 18px; font-size: .86rem; color: #444; box-shadow: var(--shadow);
+  }
+  .howto b { color: var(--navy); }
+  .howto ol { margin: 8px 0 0; padding-left: 20px; }
+  .howto li { margin: 3px 0; }
+
   .needs {
     background: var(--paper); border: 1px solid var(--line); border-left: 5px solid var(--status-needs-input);
     border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; box-shadow: var(--shadow);
@@ -76,7 +86,6 @@
   .needs li .what { font-size: .88rem; }
   .needs .allclear { color: var(--status-scheduled); font-size: .9rem; }
 
-  /* Controls */
   .controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
   .toggle { display: inline-flex; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 3px; box-shadow: var(--shadow); }
   .toggle button {
@@ -87,7 +96,6 @@
   .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: .76rem; color: var(--muted); }
   .legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
 
-  /* Calendar */
   .cal-month { margin-bottom: 22px; }
   .cal-month h3 { color: var(--navy); font-size: 1.1rem; margin: 0 0 10px; }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
@@ -99,11 +107,11 @@
   .chip {
     display: block; width: 100%; text-align: left; border: 0; cursor: pointer; margin-top: 4px;
     border-radius: 6px; padding: 4px 6px; font-size: .72rem; color: #fff; line-height: 1.25;
-    border-left: 3px solid rgba(255,255,255,.55);
+    border-left: 3px solid rgba(255,255,255,.55); position: relative;
   }
   .chip .plat { font-size: .64rem; opacity: .9; display: block; letter-spacing: .3px; text-transform: uppercase; }
+  .chip .rev-tick { position: absolute; top: 3px; right: 4px; font-size: .7rem; }
 
-  /* List */
   .list { display: grid; gap: 12px; }
   .card {
     background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
@@ -117,14 +125,13 @@
   .card .body .hook { font-weight: 600; font-size: 1rem; color: var(--ink); margin: 2px 0 6px; }
   .card .body .tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   .card .body .media-note { color: var(--muted); font-size: .78rem; margin-top: 8px; }
+  .card-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
   .pill { font-size: .7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: #fff; }
-  .pill.pillar { }
   .platicons { display: flex; gap: 4px; }
   .platicon { font-size: .66rem; font-weight: 700; color: #fff; width: 20px; height: 20px; border-radius: 5px; display: grid; place-items: center; }
   .fb { background: #1877f2; } .ig { background: #d6249f; } .yt { background: #ff0000; }
   .status { font-size: .7rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
 
-  /* Detail modal */
   .overlay { position: fixed; inset: 0; background: rgba(27,42,74,.5); display: none; align-items: flex-start; justify-content: center; padding: 24px; overflow-y: auto; z-index: 50; }
   .overlay.open { display: flex; }
   .modal { background: var(--paper); border-radius: 14px; max-width: 640px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.3); overflow: hidden; }
@@ -133,22 +140,33 @@
   .modal .m-head h3 { margin: 6px 0 0; font-size: 1.2rem; }
   .modal .m-head .close { background: rgba(255,255,255,.15); border: 0; color: #fff; font-size: 1.1rem; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; flex: 0 0 auto; }
   .modal .m-body { padding: 20px; }
-  .modal .m-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .modal .m-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; align-items: center; }
   .cap-block { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
   .cap-block .cap-head { padding: 8px 12px; font-size: .76rem; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; color: #fff; }
   .cap-block .cap-text { padding: 12px; white-space: pre-wrap; font-size: .9rem; }
   .cap-empty { color: var(--muted); font-style: italic; }
   .flags { background: #fff8e8; border: 1px solid #ecd9a6; border-radius: 10px; padding: 10px 12px; font-size: .82rem; color: #7a5f1f; margin-top: 6px; }
   .flags b { display: block; margin-bottom: 4px; }
-  .needbox { background: #fdf0e2; border: 1px solid #f0cfa2; border-radius: 10px; padding: 12px; font-size: .86rem; color: #7a4f1f; }
+  .needbox { background: #fdf0e2; border: 1px solid #f0cfa2; border-radius: 10px; padding: 12px; font-size: .86rem; color: #7a4f1f; margin-bottom: 14px; }
+
+  /* Review box */
+  .reviewbox { border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-top: 18px; background: #fbfaf7; }
+  .reviewbox .rev-title { font-weight: 700; color: var(--navy); font-size: .9rem; margin-bottom: 8px; }
+  .reviewbox .rev-cur { font-size: .85rem; margin-bottom: 10px; font-weight: 600; }
+  .reviewbox .rev-note { font-weight: 400; font-style: italic; color: #555; margin-top: 4px; }
+  .reviewbox textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; font: inherit; font-size: .85rem; resize: vertical; min-height: 52px; margin-bottom: 10px; }
+  .rev-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .rev-actions button { border: 0; border-radius: 9px; padding: 9px 16px; font-size: .86rem; font-weight: 700; cursor: pointer; color: #fff; }
+  .btn-approve { background: var(--approve); }
+  .btn-change { background: var(--change); }
+  .rev-hint { color: var(--muted); font-size: .76rem; margin-top: 8px; }
 
   footer { text-align: center; color: var(--muted); font-size: .78rem; padding: 26px 20px 40px; }
 
   @media (max-width: 640px) {
-    .cal-grid .dow:nth-child(n) { font-size: .6rem; }
     .cal-cell { min-height: 58px; }
     .card { grid-template-columns: 64px 1fr; }
-    .card .status { grid-column: 2; justify-self: start; margin-top: 4px; }
+    .card .card-right { grid-column: 2; flex-direction: row; align-items: center; margin-top: 4px; }
     header.app .brand { font-size: 1.25rem; }
   }
 </style>
@@ -164,8 +182,18 @@
 
 <main>
   <div class="sample-note" id="sampleNote" hidden>
-    👀 <b>Sample plan.</b> This is example content so you can see how the board looks. Real posts appear
-    here once you run the content system.
+    👀 <b>Sample plan.</b> This is example content so you can see how the board looks and try the
+    Approve / Request-change buttons. Real posts appear here once the content system runs.
+  </div>
+
+  <div class="howto">
+    <b>How to use this board:</b> Open any post to read it, then click <b>✓ Approve</b> if it's good to go,
+    or <b>✏️ Request change</b> (with a note) to send it back. Only approved posts get scheduled.
+    <ol>
+      <li><b>Proposed / Awaiting review</b> = drafted, needs your yes.</li>
+      <li><b>Needs from you</b> (below) = something to drop in the Drive folder.</li>
+      <li><b>Scheduled</b> = approved and booked to post automatically.</li>
+    </ol>
   </div>
 
   <section class="needs" id="needsPanel"></section>
@@ -189,6 +217,10 @@
 <footer id="foot"></footer>
 
 <script>
+const SUPA_URL = "https://zkgjmzxplqplxhsyhiui.supabase.co";
+const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InprZ2ptenhwbHFwbHhoc3loaXVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODc1NzcsImV4cCI6MjA5ODU2MzU3N30.vUwmwKIupelszpvUAmxIxAYJ0nE1fzEok0CzKorWMKM";
+const REVIEW_TABLE = "vw_post_reviews";
+
 const PILLARS = {
   "listings":       { label: "Listing",      desc: "A property she represents (auto-built from the Drive folder)" },
   "market-update":  { label: "Market Update", desc: "Local prices, inventory & trends" },
@@ -198,11 +230,11 @@ const PILLARS = {
   "video":          { label: "Video",         desc: "Repurposed from a YouTube video" }
 };
 const STATUS = {
-  "scheduled":   { label: "Scheduled",   desc: "Booked on the calendar, ready to go out" },
-  "proposed":    { label: "Proposed",    desc: "Drafted by the system — awaiting your approval" },
-  "needs-input": { label: "Needs input", desc: "Waiting on something from you or your mom" },
-  "posted":      { label: "Posted",      desc: "Already live" },
-  "draft":       { label: "Draft",       desc: "Work in progress" }
+  "scheduled":   { label: "Scheduled" },
+  "proposed":    { label: "Proposed" },
+  "needs-input": { label: "Needs input" },
+  "posted":      { label: "Posted" },
+  "draft":       { label: "Draft" }
 };
 const PLATFORMS = { facebook: {a:"FB", c:"fb"}, instagram: {a:"IG", c:"ig"}, youtube: {a:"YT", c:"yt"} };
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -212,22 +244,75 @@ const pillarColor = (p) => cssVar("--pillar-" + p) || "#666";
 const statusColor = (s) => cssVar("--status-" + s) || "#666";
 
 let PLAN = null;
+let REVIEWS = {}; // post_id -> { status, note }
 
-fetch("plan.json?v=" + Date.now())
-  .then(r => r.json())
-  .then(plan => { PLAN = plan; render(); })
-  .catch(err => {
+boot();
+async function boot() {
+  try {
+    PLAN = await fetch("plan.json?v=" + Date.now()).then(r => r.json());
+  } catch (err) {
     document.querySelector("main").innerHTML =
-      '<div class="sample-note">Could not load plan.json. If you are opening this file directly, run it through a local server or view the deployed Vercel link.</div>';
-  });
+      '<div class="sample-note">Could not load plan.json. If you opened this file directly, use the deployed Vercel link instead.</div>';
+    return;
+  }
+  await loadReviews();
+  render();
+}
+
+async function loadReviews() {
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${REVIEW_TABLE}?select=post_id,status,note`, {
+      headers: { apikey: SUPA_KEY, Authorization: "Bearer " + SUPA_KEY }
+    });
+    if (res.ok) { const rows = await res.json(); REVIEWS = {}; rows.forEach(r => REVIEWS[r.post_id] = r); }
+  } catch (e) { /* offline — buttons still render, just no saved state */ }
+}
+
+async function submitReview(postId, status) {
+  const noteEl = document.getElementById("reviewNote");
+  const note = noteEl ? noteEl.value.trim() : "";
+  const actions = document.getElementById("reviewActions");
+  if (actions) actions.innerHTML = "Saving…";
+  const body = [{ post_id: postId, status, note: note || null, plan_generated_at: PLAN.generatedAt || null, reviewer: "veronica" }];
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${REVIEW_TABLE}?on_conflict=post_id`, {
+      method: "POST",
+      headers: {
+        apikey: SUPA_KEY, Authorization: "Bearer " + SUPA_KEY,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates,return=representation"
+      },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    REVIEWS[postId] = { post_id: postId, status, note };
+    openPost(postId);
+    render();
+  } catch (e) {
+    if (actions) actions.innerHTML = '<span style="color:#b00;font-weight:600">Could not save — check your connection and try again.</span>';
+  }
+}
+
+function reviewInfo(p) {
+  const r = REVIEWS[p.id];
+  if (r && r.status === "approved") return { label: "✓ Approved", color: cssVar("--approve"), bg: "rgba(47,143,106,.14)" };
+  if (r && r.status === "change-requested") return { label: "✎ Change requested", color: cssVar("--change"), bg: "rgba(201,130,42,.14)" };
+  if (p.status === "proposed" || p.status === "needs-input") return { label: "◷ Awaiting review", color: "#6b7280", bg: "rgba(107,114,128,.12)" };
+  return null;
+}
 
 function render() {
   const b = PLAN.brand || {};
   document.getElementById("tagline").textContent = b.tagline || "";
+  const awaiting = PLAN.posts.filter(p => {
+    const r = REVIEWS[p.id];
+    return (p.status === "proposed" || p.status === "needs-input") && !(r && r.status === "approved");
+  }).length;
   document.getElementById("headMeta").innerHTML = [
     b.brokerage ? `<span>${b.brokerage}</span>` : "",
     PLAN.cadence ? `<span>🗓 <b>${PLAN.cadence}</b></span>` : "",
     PLAN.window && PLAN.window.label ? `<span>Window: <b>${PLAN.window.label}</b></span>` : "",
+    awaiting ? `<span class="review-count">${awaiting} awaiting your review</span>` : `<span class="review-count" style="background:#2f8f6a;color:#fff">All reviewed ✓</span>`,
     PLAN.generatedAt ? `<span>Updated ${fmtDate(PLAN.generatedAt)}</span>` : ""
   ].join("");
   document.getElementById("sampleNote").hidden = !PLAN.isSample;
@@ -237,13 +322,13 @@ function render() {
   renderCalendar();
   renderList();
   document.getElementById("foot").innerHTML =
-    `${b.name || ""} · ${b.phone || ""} · ${b.website || ""}<br>Content board — view only. Approvals happen in Claude Code.`;
+    `${b.name || ""} · ${b.phone || ""} · ${b.website || ""}<br>Content board — read, review, and approve. Scheduling happens after your approval.`;
 }
 
 function renderNeeds() {
   const el = document.getElementById("needsPanel");
   const needs = PLAN.posts.filter(p => p.status === "needs-input");
-  let html = `<h2>📌 Needs from you</h2><div class="sub">The only things blocking the plan. Everything else the system handles.</div>`;
+  let html = `<h2>📌 Needs from you</h2><div class="sub">Things to drop in the Drive folder so a post can be built. Everything else the system handles.</div>`;
   if (!needs.length) {
     html += `<div class="allclear">✅ Nothing needed right now — the plan is unblocked.</div>`;
   } else {
@@ -256,8 +341,7 @@ function renderNeeds() {
 }
 
 function renderPillarLegend() {
-  const el = document.getElementById("pillarLegend");
-  el.innerHTML = Object.keys(PILLARS).map(k =>
+  document.getElementById("pillarLegend").innerHTML = Object.keys(PILLARS).map(k =>
     `<span title="${PILLARS[k].desc}"><span class="dot" style="background:${pillarColor(k)}"></span>${PILLARS[k].label}</span>`
   ).join("");
 }
@@ -271,7 +355,6 @@ function postsByDate() {
 function renderCalendar() {
   const view = document.getElementById("calView");
   const map = postsByDate();
-  // Determine months to show from the posts / window
   const dates = PLAN.posts.map(p => p.date).sort();
   const startD = new Date((PLAN.window?.start || dates[0]) + "T12:00:00");
   const endD = new Date((PLAN.window?.end || dates[dates.length-1]) + "T12:00:00");
@@ -292,8 +375,10 @@ function renderCalendar() {
       const isToday = ds === todayStr;
       const chips = (map[ds] || []).map(p => {
         const plats = p.platforms.map(pl => PLATFORMS[pl]?.a).join(" · ");
+        const r = REVIEWS[p.id];
+        const tick = r && r.status === "approved" ? "✓" : r && r.status === "change-requested" ? "✎" : "";
         return `<button class="chip" style="background:${pillarColor(p.pillar)}" onclick="openPost('${p.id}')">
-                  ${p.hook}<span class="plat">${plats}</span></button>`;
+                  ${tick ? `<span class="rev-tick">${tick}</span>` : ""}${p.hook}<span class="plat">${plats}</span></button>`;
       }).join("");
       html += `<div class="cal-cell${isToday ? " today" : ""}"><div class="num">${day}</div>${chips}</div>`;
     }
@@ -310,17 +395,21 @@ function renderList() {
     const dt = new Date(p.date + "T12:00:00");
     const plats = p.platforms.map(pl =>
       `<span class="platicon ${PLATFORMS[pl]?.c}">${PLATFORMS[pl]?.a}</span>`).join("");
+    const ri = reviewInfo(p);
     return `<div class="card" onclick="openPost('${p.id}')">
       <div class="date"><div class="d">${dt.getDate()}</div><div class="m">${MONTHS[dt.getMonth()].slice(0,3)}</div><div class="t">${p.time||""}</div></div>
       <div class="body">
         <div class="hook">${p.hook}</div>
         <div class="tags">
-          <span class="pill pillar" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>
+          <span class="pill" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>
           <span class="platicons">${plats}</span>
         </div>
         ${p.media?.label ? `<div class="media-note">🎬 ${p.media.label}</div>` : ""}
       </div>
-      <span class="status" style="background:${hexA(statusColor(p.status),.14)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>
+      <div class="card-right">
+        <span class="status" style="background:${hexA(statusColor(p.status),.14)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>
+        ${ri ? `<span class="status" style="background:${ri.bg};color:${ri.color}">${ri.label}</span>` : ""}
+      </div>
     </div>`;
   }).join("") + `</div>`;
 }
@@ -329,9 +418,11 @@ function openPost(id) {
   const p = PLAN.posts.find(x => x.id === id);
   if (!p) return;
   const dt = new Date(p.date + "T12:00:00");
+  const ri = reviewInfo(p);
   const meta = [
-    `<span class="pill pillar" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>`,
+    `<span class="pill" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>`,
     `<span class="status" style="background:${hexA(statusColor(p.status),.16)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>`,
+    ri ? `<span class="status" style="background:${ri.bg};color:${ri.color}">${ri.label}</span>` : "",
     ...p.platforms.map(pl => `<span class="platicon ${PLATFORMS[pl]?.c}">${PLATFORMS[pl]?.a}</span>`)
   ].join(" ");
 
@@ -342,32 +433,54 @@ function openPost(id) {
     let val = p.captions ? p.captions[pl] : null;
     let text;
     if (val == null) text = `<span class="cap-empty">Not written yet — see "Needs from you" below.</span>`;
-    else if (typeof val === "object") text = `<b>Title:</b> ${val.title||""}\n\n${val.description||""}`;
+    else if (typeof val === "object") text = `Title: ${val.title||""}\n\n${val.description||""}`;
     else text = val;
     const color = pl === "facebook" ? "#1877f2" : pl === "instagram" ? "#d6249f" : "#ff0000";
-    caps += `<div class="cap-block"><div class="cap-head" style="background:${color}">${pl}</div><div class="cap-text">${text}</div></div>`;
+    caps += `<div class="cap-block"><div class="cap-head" style="background:${color}">${pl}</div><div class="cap-text">${escapeHtml(text)}</div></div>`;
   });
 
   const flags = (p.flags && p.flags.length)
-    ? `<div class="flags"><b>⚠️ Before posting:</b>${p.flags.map(f=>`• ${f}`).join("<br>")}</div>` : "";
-  const need = p.needs ? `<div class="needbox"><b>📌 Needs from you:</b> ${p.needs}</div>` : "";
+    ? `<div class="flags"><b>⚠️ Before posting:</b>${p.flags.map(f=>`• ${escapeHtml(f)}`).join("<br>")}</div>` : "";
+  const need = p.needs ? `<div class="needbox"><b>📌 Needs from you:</b> ${escapeHtml(p.needs)}</div>` : "";
+
+  // Review controls — for anything not yet scheduled/posted
+  let reviewHtml = "";
+  const reviewable = (p.status === "proposed" || p.status === "needs-input");
+  const r = REVIEWS[p.id];
+  if (reviewable || r) {
+    const cur = r && r.status === "approved" ? '<span style="color:var(--approve)">✓ You approved this</span>'
+              : r && r.status === "change-requested" ? '<span style="color:var(--change)">✎ You requested a change</span>'
+              : '<span style="color:var(--muted)">◷ Awaiting your review</span>';
+    reviewHtml = `
+      <div class="reviewbox">
+        <div class="rev-title">Your review</div>
+        <div class="rev-cur">${cur}${r && r.note ? `<div class="rev-note">"${escapeHtml(r.note)}"</div>` : ""}</div>
+        <textarea id="reviewNote" placeholder="Optional note (e.g. use a different photo, fix the price, softer tone)…">${r && r.note ? escapeHtml(r.note) : ""}</textarea>
+        <div id="reviewActions" class="rev-actions">
+          <button class="btn-approve" onclick="submitReview('${p.id}','approved')">✓ Approve</button>
+          <button class="btn-change" onclick="submitReview('${p.id}','change-requested')">✏️ Request change</button>
+        </div>
+        <div class="rev-hint">Your choice saves instantly and shows up for Steven. Only approved posts get scheduled.</div>
+      </div>`;
+  }
 
   document.getElementById("modal").innerHTML = `
     <div class="m-head">
       <div class="row">
         <div>
           <div style="font-size:.78rem;color:#c9d2e2">${dt.toLocaleDateString('en-US',{weekday:'long'})}, ${MONTHS[dt.getMonth()]} ${dt.getDate()} · ${p.time||""}</div>
-          <h3>${p.hook}</h3>
+          <h3>${escapeHtml(p.hook)}</h3>
         </div>
         <button class="close" onclick="closeModal()">✕</button>
       </div>
     </div>
     <div class="m-body">
       <div class="m-meta">${meta}</div>
-      ${p.media?.label ? `<div class="media-note" style="margin-bottom:14px;color:var(--muted);font-size:.85rem">🎬 Media: ${p.media.label}</div>` : ""}
+      ${p.media?.label ? `<div class="media-note" style="margin-bottom:14px;color:var(--muted);font-size:.85rem">🎬 Media: ${escapeHtml(p.media.label)}</div>` : ""}
       ${need}
       ${caps}
       ${flags}
+      ${reviewHtml}
     </div>`;
   document.getElementById("overlay").classList.add("open");
 }
@@ -387,6 +500,7 @@ function switchView(v) {
 function fmtDate(s){ const d=new Date(s+"T12:00:00"); return `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}`; }
 function fmtShort(s){ const d=new Date(s+"T12:00:00"); return `${MONTHS[d.getMonth()].slice(0,3)} ${d.getDate()}`; }
 function hexA(hex, a){ hex=hex.replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join(''); const n=parseInt(hex,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 </script>
 </body>
 </html>

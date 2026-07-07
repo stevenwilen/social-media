@@ -74,7 +74,12 @@ Support: approve all · approve a subset ("all except Wednesday") · edit a draf
 change a time. Make changes and re-show only what changed. Default to *nothing happens* until she says go.
 
 ## Step 8 — Schedule the approved batch
-Hand approved items to **content-manager** to schedule (calendar-aware, ET→UTC, no double-booking).
+Approval now happens **in the dashboard** (Veronica clicks Approve / Request change per post; saved to
+Supabase `vw_post_reviews`). When the user says "schedule the approved posts," read those decisions
+(see the **dashboard** skill) and hand **only `approved`** items to **content-manager** to schedule
+(calendar-aware, ET→UTC, no double-booking). Redraft `change-requested` posts from her note; leave
+`pending` ones. Her in-dashboard approval (or a direct go-ahead from Steven) is the required gate —
+never schedule an unreviewed post.
 Then report: what's scheduled (dated, ET), what's still waiting on her input, and any compliance
 rewrites you made. Optionally save the approved plan to `content-plans/YYYY-MM-DD.md` for a record.
 

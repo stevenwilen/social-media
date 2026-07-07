@@ -67,6 +67,25 @@ Rules:
    otherwise non-interactive. If not logged in, tell him to run `vercel login`.)
 3. Report the live URL and a one-line summary of what changed (e.g. "3 proposed, 1 needs a listing").
 
+## Review layer (Approve / Request change) — the approval gate
+Veronica reviews the plan **in the dashboard**. Each proposed post has **✓ Approve** and
+**✏️ Request change** buttons; her choice saves to Supabase and shows live on the board.
+
+- **Backend:** Supabase project **`zkgjmzxplqplxhsyhiui`** ("Advisor Outreach"), table
+  **`public.vw_post_reviews`** (columns: `post_id`, `status` ∈ `pending|approved|change-requested`,
+  `note`, `plan_generated_at`, `reviewer`, `updated_at`). The dashboard reads/writes it directly with
+  the public anon key + RLS (safe: the key only grants access to this one table).
+- **Read her decisions** (before scheduling) with the Supabase MCP:
+  `select post_id, status, note from public.vw_post_reviews;` on project `zkgjmzxplqplxhsyhiui`.
+- **Hard rule — only APPROVED posts get scheduled.** When the user says "schedule the approved posts":
+  1. Query `vw_post_reviews`.
+  2. Schedule (via content-manager) **only** posts whose `status = 'approved'`.
+  3. For `change-requested`, read the `note`, redraft that post, update `plan.json`, redeploy — do
+     NOT schedule it until she approves the new version.
+  4. Leave `pending` posts alone (she hasn't reviewed them yet) and tell the user which are still pending.
+- Post `id`s in `plan.json` must be **stable + unique** (date + slug) so her review sticks to the
+  right post. When a new plan reuses an id, treat it as the same slot.
+
 ## Keep in sync with reality
 Before flipping statuses to `scheduled`/`posted`, you can cross-check the real Blotato calendar with
 `blotato_list_schedules` so the board matches what's actually booked. The board should never claim a
