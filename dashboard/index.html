@@ -363,7 +363,7 @@ async function submitReview(postId, status) {
     openPost(postId);
     render();
   } catch (e) {
-    if (actions) actions.innerHTML = '<span style="color:#b00;font-weight:600">Could not save — check your connection and try again.</span>';
+    if (actions) actions.innerHTML = '<span style="color:#b00;font-weight:600">Could not save. Check your connection and try again.</span>';
   }
 }
 
@@ -398,7 +398,7 @@ function render() {
   renderCalendar();
   renderList();
   document.getElementById("foot").innerHTML =
-    `${b.name || ""} · ${b.phone || ""} · ${b.website || ""}<br>Content board — read, review, and approve. Scheduling happens after your approval.`;
+    `${b.name || ""} · ${b.phone || ""} · ${b.website || ""}<br>Content board: read, review, and approve. Scheduling happens after your approval.`;
 }
 
 function renderNeeds() {
@@ -406,7 +406,7 @@ function renderNeeds() {
   const needs = PLAN.posts.filter(p => p.status === "needs-input");
   let html = `<h2>📌 Needs from you</h2><div class="sub">Things to drop in the Drive folder so a post can be built. Everything else the system handles.</div>`;
   if (!needs.length) {
-    html += `<div class="allclear">✅ Nothing needed right now — the plan is unblocked.</div>`;
+    html += `<div class="allclear">✅ Nothing needed right now. The plan is unblocked.</div>`;
   } else {
     html += "<ul>" + needs.map(p =>
       `<li><span class="when">${fmtShort(p.date)}<br><span style="color:var(--muted);font-weight:400">${PILLARS[p.pillar]?.label||p.pillar}</span></span>
@@ -506,7 +506,7 @@ function openPost(id) {
     if (val == null && p.status === "posted") return;
     const color = pl === "facebook" ? "#1877f2" : pl === "instagram" ? "#d6249f" : "#ff0000";
     let body;
-    if (val == null) body = `<span class="cap-empty">Not written yet — see "Needs from you" below.</span>`;
+    if (val == null) body = `<span class="cap-empty">Not written yet. See "Needs from you" below.</span>`;
     else if (typeof val === "object") body = escapeHtml(`Title: ${val.title||""}\n\n${val.description||""}`);
     else body = escapeHtml(val);
     caps += `<div class="cap-block"><div class="cap-head" style="background:${color}">${pl}</div><div class="cap-text">${body}</div></div>`;
@@ -572,7 +572,7 @@ function openPost(id) {
           <button class="btn-change" onclick="submitReview('${p.id}','change-requested')">✏️ Request change</button>
           ${r ? `<button class="btn-undo" onclick="submitReview('${p.id}','pending')">↩ Undo</button>` : ""}
         </div>
-        <div class="rev-hint">You can change your mind anytime — click the other button to switch, or Undo to clear it back to unreviewed. Only approved posts get scheduled.</div>
+        <div class="rev-hint">You can change your mind anytime: click the other button to switch, or Undo to clear it back to unreviewed. Only approved posts get scheduled.</div>
       </div>`;
   }
 
