@@ -154,7 +154,8 @@
   .reviewbox .rev-title { font-weight: 700; color: var(--navy); font-size: .9rem; margin-bottom: 8px; }
   .reviewbox .rev-cur { font-size: .85rem; margin-bottom: 10px; font-weight: 600; }
   .reviewbox .rev-note { font-weight: 400; font-style: italic; color: #555; margin-top: 4px; }
-  .reviewbox textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; font: inherit; font-size: .85rem; resize: vertical; min-height: 52px; margin-bottom: 10px; }
+  .reviewbox .rev-field-label { display: block; font-size: .78rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .reviewbox textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; font: inherit; font-size: .85rem; resize: vertical; min-height: 44px; margin-bottom: 10px; }
   .rev-actions { display: flex; gap: 10px; flex-wrap: wrap; }
   .rev-actions button { border: 0; border-radius: 9px; padding: 9px 16px; font-size: .86rem; font-weight: 700; cursor: pointer; color: #fff; }
   .btn-approve { background: var(--approve); }
@@ -310,9 +311,40 @@ async function loadReviews() {
   } catch (e) { /* offline — buttons still render, just no saved state */ }
 }
 
+// The reviews table only has one free-text "note" column, so we combine three
+// labeled boxes into one tagged string on save, and split it back apart on read.
+const NOTE_FIELDS = [
+  { key: "photo",   tag: "Photo/video filename", placeholder: "e.g. Nocatee Fall Festival flyer.png" },
+  { key: "caption", tag: "Caption changes",       placeholder: "e.g. fix the price to $585,000, softer tone" },
+  { key: "other",   tag: "Other notes",           placeholder: "Anything else…" }
+];
+function composeNote() {
+  const parts = [];
+  NOTE_FIELDS.forEach(f => {
+    const el = document.getElementById("revField_" + f.key);
+    const val = el ? el.value.trim() : "";
+    if (val) parts.push(`[${f.tag}] ${val}`);
+  });
+  return parts.join("\n");
+}
+function parseNote(note) {
+  const out = {};
+  if (!note) return out;
+  const re = /\[([^\]]+)\]\s*([^\[]*)/g;
+  let m;
+  while ((m = re.exec(note))) {
+    const tag = m[1].trim();
+    const val = m[2].trim();
+    const field = NOTE_FIELDS.find(f => f.tag === tag);
+    if (field) out[field.key] = val;
+  }
+  // Fallback: old freeform notes (pre-dating structured fields) have no [Tag] prefix at all.
+  if (!Object.keys(out).length && note.trim()) out.other = note.trim();
+  return out;
+}
+
 async function submitReview(postId, status) {
-  const noteEl = document.getElementById("reviewNote");
-  const note = (status === "pending") ? "" : (noteEl ? noteEl.value.trim() : "");
+  const note = (status === "pending") ? "" : composeNote();
   const actions = document.getElementById("reviewActions");
   if (actions) actions.innerHTML = "Saving…";
   const body = [{ post_id: postId, status, note: note || null, plan_generated_at: PLAN.generatedAt || null, reviewer: "veronica" }];
@@ -525,11 +557,16 @@ function openPost(id) {
     const cur = r && r.status === "approved" ? '<span style="color:var(--approve)">✓ You approved this</span>'
               : r && r.status === "change-requested" ? '<span style="color:var(--change)">✎ You requested a change</span>'
               : '<span style="color:var(--muted)">◷ Awaiting your review</span>';
+    const parsed = parseNote(r && r.note);
+    const fieldsHtml = NOTE_FIELDS.map(f => `
+      <label class="rev-field-label" for="revField_${f.key}">${f.tag}</label>
+      <textarea id="revField_${f.key}" placeholder="${escapeHtml(f.placeholder)}">${escapeHtml(parsed[f.key] || "")}</textarea>
+    `).join("");
     reviewHtml = `
       <div class="reviewbox">
         <div class="rev-title">Your review</div>
-        <div class="rev-cur">${cur}${r && r.note ? `<div class="rev-note">"${escapeHtml(r.note)}"</div>` : ""}</div>
-        <textarea id="reviewNote" placeholder="Optional note (e.g. use a different photo, fix the price, softer tone)…">${r && r.note ? escapeHtml(r.note) : ""}</textarea>
+        <div class="rev-cur">${cur}</div>
+        ${fieldsHtml}
         <div id="reviewActions" class="rev-actions">
           <button class="btn-approve" onclick="submitReview('${p.id}','approved')">✓ Approve</button>
           <button class="btn-change" onclick="submitReview('${p.id}','change-requested')">✏️ Request change</button>
