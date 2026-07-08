@@ -36,6 +36,15 @@ Any content you produce under this skill must be:
    can quickly pick, edit, or approve for posting/scheduling.
 
 ## Formatting mechanics (HARD rules — apply to every caption, title, and description)
+- **Sign-off block must include her cell number under her name.** Whenever a caption's closing
+  signature says "Veronica Wilen, Realtor" (with or without the brokerage line), the very next
+  line must be her cell **904-808-3737**, e.g.:
+  ```
+  Veronica Wilen, Realtor
+  904-808-3737
+  Christie's International Real Estate | First Coast
+  ```
+  (Per Veronica's direct feedback — profile §11.)
 - **Never use em dashes (—) or en dashes (–) as punctuation.** Rewrite with a period, comma, colon,
   or parentheses, or split into two sentences. This applies to ALL generated text everywhere
   (captions, YouTube titles/descriptions, dashboard hooks). A hyphen in a real compound word

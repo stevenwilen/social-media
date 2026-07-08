@@ -153,3 +153,19 @@ Opportunity" where appropriate. `[CONFIRM exact format with your broker's compli
 **No overpromising** — avoid guarantees about price, timelines, or investment returns.
 
 > If a draft risks any of the above, flag it and rewrite before posting — do not post and ask forgiveness.
+
+## 11. Hard Requirements (per Veronica's direct feedback)
+
+- **Every post must have a photo/media slot, no exceptions.** When drafting a new post, always
+  create a `media` slot in `dashboard/plan.json` (even if the file isn't chosen yet) — the value
+  is just the filename of the photo in the Google Drive folder (see `listing-intake` /
+  `dashboard` skills). Never leave a post text-only by default; if no photo exists yet, mark the
+  post `needs-input` and ask for one instead of publishing without media.
+- **Sign-off block must include her cell number under her name.** Whenever a caption's closing
+  signature includes "Veronica Wilen, Realtor" (with or without the brokerage line), put her cell
+  **904-808-3737** on the line directly below her name, e.g.:
+  ```
+  Veronica Wilen, Realtor
+  904-808-3737
+  Christie's International Real Estate | First Coast
+  ```

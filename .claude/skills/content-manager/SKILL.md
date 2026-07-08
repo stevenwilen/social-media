@@ -41,12 +41,16 @@ Use **`blotato_create_source`** with the right `sourceType`
 Publishing targets are **Facebook + Instagram only.** We do **NOT** auto-publish to YouTube —
 Veronica manages her own channel. (A YouTube URL is a *source* to repurpose into FB/IG posts, per
 Step 1, never a destination.) Respect media rules (profile §5):
-- **Facebook** — text-forward hub; text-only is fine; media optional.
+- **Facebook** — text-forward hub; media is HARD REQUIRED now (profile §11 — Veronica's
+  direct feedback), not optional. Every post needs a photo slot.
 - **Instagram** — **requires media** (reel/story). No media → either request it, or offer to
   generate a visual (`blotato_create_visual`). Don't silently drop IG.
 - **Market-update pillar → Facebook only, never draft Instagram.** Market-update posts are
   stat/analysis-driven and rarely have a purpose-built graphic; Instagram is a visual-first
   platform, so don't draft an IG caption for this pillar at all (not even a placeholder).
+- **Every post needs a media slot — no exceptions (profile §11).** If no photo is available yet,
+  don't publish text-only: mark the post `needs-input` in `plan.json` and ask Veronica to drop
+  the file in the Drive folder (the `media` field just holds that filename once she names it).
 
 Default output: **1 strong, platform-tailored caption per target platform per source.**
 If the user wants options ("give me 5 for Facebook"), produce variations.

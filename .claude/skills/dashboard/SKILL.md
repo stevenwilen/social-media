@@ -32,7 +32,7 @@ The site reads this one file. Keep it valid JSON matching this shape:
       "pillar": "listings | market-update | development | community | lifestyle | video",
       "hook": "short title shown on the calendar",
       "status": "scheduled | proposed | needs-input | posted | draft",
-      "media": { "type": "reel|image|video|none", "label": "human note about the media" },
+      "media": { "type": "reel|image|video", "label": "the photo/video filename as it sits in the Google Drive folder" },
       "captions": { "facebook": "text", "instagram": "text", "youtube": { "title": "", "description": "" } },
       "flags": ["VERIFY ... before posting"],
       "needs": "what's blocking (only when status is needs-input) — else null",
@@ -50,6 +50,9 @@ Rules:
 - Captions can be `null` when not written yet (blocked posts) — the site shows a placeholder.
 - Set **`isSample: false`** on the first real plan (removes the "sample" banner).
 - A caption/price/fact must never be invented — same compliance rules as everywhere.
+- **Every post needs a `media` slot — no exceptions (per Veronica's direct feedback).** `media.label`
+  is just the filename of the photo/video as it sits in the Drive folder. If a post has no photo
+  yet, don't leave it text-only: mark it `needs-input` and put the ask in `needs` instead.
 
 ## When to update it
 - **After `autopilot`** produces a week's plan → write each slot as a post (mostly `proposed`, with
