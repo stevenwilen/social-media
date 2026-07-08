@@ -468,12 +468,14 @@ function openPost(id) {
   capOrder.forEach(pl => {
     if (!p.platforms.includes(pl)) return;
     let val = p.captions ? p.captions[pl] : null;
-    let text;
-    if (val == null) text = `<span class="cap-empty">Not written yet — see "Needs from you" below.</span>`;
-    else if (typeof val === "object") text = `Title: ${val.title||""}\n\n${val.description||""}`;
-    else text = val;
+    // Posted posts only show captions for platforms actually published to — skip empty ones instead of a placeholder.
+    if (val == null && p.status === "posted") return;
     const color = pl === "facebook" ? "#1877f2" : pl === "instagram" ? "#d6249f" : "#ff0000";
-    caps += `<div class="cap-block"><div class="cap-head" style="background:${color}">${pl}</div><div class="cap-text">${escapeHtml(text)}</div></div>`;
+    let body;
+    if (val == null) body = `<span class="cap-empty">Not written yet — see "Needs from you" below.</span>`;
+    else if (typeof val === "object") body = escapeHtml(`Title: ${val.title||""}\n\n${val.description||""}`);
+    else body = escapeHtml(val);
+    caps += `<div class="cap-block"><div class="cap-head" style="background:${color}">${pl}</div><div class="cap-text">${body}</div></div>`;
   });
 
   // Posted posts are done — show a minimal read-only view (name, media, captions, link).

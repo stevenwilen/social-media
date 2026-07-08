@@ -15,18 +15,17 @@
       "id": "2026-07-10-market",
       "date": "2026-07-10",
       "time": "9:00 AM ET",
-      "platforms": ["facebook", "instagram"],
+      "platforms": ["facebook"],
       "pillar": "market-update",
       "hook": "St. Johns County market update: June 2026",
       "status": "posted",
-      "media": { "type": "none", "label": "Text-only (Instagram pending a market-stat graphic from Veronica)" },
+      "media": { "type": "none", "label": "Text-only" },
       "postUrl": "https://facebook.com/1048935065286772_1457713309706595",
       "captions": {
-        "facebook": "St. Johns County market update: June 2026\n\nThe June numbers are in. Home values remain strong, with a median sales price of $579,000, while inventory keeps growing, giving buyers more choices. Well-priced homes are still selling, but smart pricing matters more than ever.\n\nWondering what your home is worth in today's market? I'd be happy to run a complimentary home value analysis. Send me a message!\n\nVeronica Wilen, Realtor\nChristie's International Real Estate | First Coast",
-        "instagram": null
+        "facebook": "St. Johns County market update: June 2026\n\nThe June numbers are in. Home values remain strong, with a median sales price of $579,000, while inventory keeps growing, giving buyers more choices. Well-priced homes are still selling, but smart pricing matters more than ever.\n\nWondering what your home is worth in today's market? I'd be happy to run a complimentary home value analysis. Send me a message!\n\nVeronica Wilen, Realtor\nChristie's International Real Estate | First Coast"
       },
       "flags": [],
-      "needs": "Instagram version still needs a market-stat graphic/reel from Veronica before it can post."
+      "needs": null
     },
     {
       "id": "2026-07-13-lifestyle",
