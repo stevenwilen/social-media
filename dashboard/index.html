@@ -462,13 +462,6 @@ function openPost(id) {
   const p = PLAN.posts.find(x => x.id === id);
   if (!p) return;
   const dt = new Date(p.date + "T12:00:00");
-  const ri = reviewInfo(p);
-  const meta = [
-    `<span class="pill" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>`,
-    `<span class="status" style="background:${hexA(statusColor(p.status),.16)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>`,
-    ri ? `<span class="status" style="background:${ri.bg};color:${ri.color}">${ri.label}</span>` : "",
-    ...p.platforms.map(pl => `<span class="platicon ${PLATFORMS[pl]?.c}">${PLATFORMS[pl]?.a}</span>`)
-  ].join(" ");
 
   const capOrder = ["facebook","instagram","youtube"];
   let caps = "";
@@ -482,6 +475,39 @@ function openPost(id) {
     const color = pl === "facebook" ? "#1877f2" : pl === "instagram" ? "#d6249f" : "#ff0000";
     caps += `<div class="cap-block"><div class="cap-head" style="background:${color}">${pl}</div><div class="cap-text">${escapeHtml(text)}</div></div>`;
   });
+
+  // Posted posts are done — show a minimal read-only view (name, media, captions, link).
+  if (p.status === "posted") {
+    document.getElementById("modal").innerHTML = `
+      <div class="m-head">
+        <div class="row">
+          <div>
+            <div style="font-size:.78rem;color:#c9d2e2">${dt.toLocaleDateString('en-US',{weekday:'long'})}, ${MONTHS[dt.getMonth()]} ${dt.getDate()} · ${p.time||""}</div>
+            <h3>${escapeHtml(p.hook)}</h3>
+          </div>
+          <button class="close" onclick="closeModal()">✕</button>
+        </div>
+      </div>
+      <div class="m-body">
+        <div class="m-meta">
+          <span class="status" style="background:${hexA(statusColor(p.status),.16)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>
+          ${p.platforms.map(pl => `<span class="platicon ${PLATFORMS[pl]?.c}">${PLATFORMS[pl]?.a}</span>`).join(" ")}
+        </div>
+        ${p.media?.label ? `<div class="media-note" style="margin-bottom:14px;color:var(--muted);font-size:.85rem">🎬 Media: ${escapeHtml(p.media.label)}</div>` : ""}
+        ${p.postUrl ? `<div class="media-note" style="margin-bottom:14px;font-size:.85rem">🔗 <a href="${p.postUrl}" target="_blank" rel="noopener">View live post</a></div>` : ""}
+        ${caps}
+      </div>`;
+    document.getElementById("overlay").classList.add("open");
+    return;
+  }
+
+  const ri = reviewInfo(p);
+  const meta = [
+    `<span class="pill" style="background:${pillarColor(p.pillar)}">${PILLARS[p.pillar]?.label||p.pillar}</span>`,
+    `<span class="status" style="background:${hexA(statusColor(p.status),.16)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>`,
+    ri ? `<span class="status" style="background:${ri.bg};color:${ri.color}">${ri.label}</span>` : "",
+    ...p.platforms.map(pl => `<span class="platicon ${PLATFORMS[pl]?.c}">${PLATFORMS[pl]?.a}</span>`)
+  ].join(" ");
 
   const flags = (p.flags && p.flags.length)
     ? `<div class="flags"><b>⚠️ Before posting:</b>${p.flags.map(f=>`• ${escapeHtml(f)}`).join("<br>")}</div>` : "";
