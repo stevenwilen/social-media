@@ -35,7 +35,8 @@ The site reads this one file. Keep it valid JSON matching this shape:
       "media": { "type": "reel|image|video|none", "label": "human note about the media" },
       "captions": { "facebook": "text", "instagram": "text", "youtube": { "title": "", "description": "" } },
       "flags": ["VERIFY ... before posting"],
-      "needs": "what's blocking (only when status is needs-input) — else null"
+      "needs": "what's blocking (only when status is needs-input) — else null",
+      "postUrl": "live link once status is posted — omit/null otherwise"
     }
   ]
 }
@@ -54,7 +55,7 @@ Rules:
 - **After `autopilot`** produces a week's plan → write each slot as a post (mostly `proposed`, with
   `needs-input` for anything blocked). This is the main use.
 - **After `content-manager` schedules** posts → flip those posts to `scheduled`.
-- **After something posts** → flip to `posted`.
+- **After something posts** → flip to `posted` and set `postUrl` to the live link.
 - Whenever Steven says "update the dashboard."
 
 ## How to update + redeploy

@@ -448,6 +448,7 @@ function renderList() {
           <span class="platicons">${plats}</span>
         </div>
         ${p.media?.label ? `<div class="media-note">🎬 ${p.media.label}</div>` : ""}
+        ${p.postUrl ? `<div class="media-note">🔗 <a href="${p.postUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">View live post</a></div>` : ""}
       </div>
       <div class="card-right">
         <span class="status" style="background:${hexA(statusColor(p.status),.14)};color:${statusColor(p.status)}">${STATUS[p.status]?.label||p.status}</span>
@@ -521,6 +522,7 @@ function openPost(id) {
     <div class="m-body">
       <div class="m-meta">${meta}</div>
       ${p.media?.label ? `<div class="media-note" style="margin-bottom:14px;color:var(--muted);font-size:.85rem">🎬 Media: ${escapeHtml(p.media.label)}</div>` : ""}
+      ${p.postUrl ? `<div class="media-note" style="margin-bottom:14px;font-size:.85rem">🔗 <a href="${p.postUrl}" target="_blank" rel="noopener">View live post</a></div>` : ""}
       ${need}
       ${caps}
       ${flags}

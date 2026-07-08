@@ -6,8 +6,8 @@
     "phone": "904-808-3737",
     "website": "veronicawilen.com"
   },
-  "generatedAt": "2026-07-07",
-  "isSample": true,
+  "generatedAt": "2026-07-08",
+  "isSample": false,
   "window": { "label": "Jul 10 to 24, 2026", "start": "2026-07-10", "end": "2026-07-24" },
   "cadence": "Mon / Wed / Fri · 9:00 AM ET",
   "posts": [
@@ -17,15 +17,16 @@
       "time": "9:00 AM ET",
       "platforms": ["facebook", "instagram"],
       "pillar": "market-update",
-      "hook": "Nocatee's June numbers are in",
-      "status": "proposed",
-      "media": { "type": "reel", "label": "Market stat reel (branded)" },
+      "hook": "St. Johns County market update: June 2026",
+      "status": "posted",
+      "media": { "type": "none", "label": "Text-only (Instagram pending a market-stat graphic from Veronica)" },
+      "postUrl": "https://facebook.com/1048935065286772_1457713309706595",
       "captions": {
-        "facebook": "Nocatee's June numbers are in, and if you own here they're worth a look.\n\nThe median sale price held steady while homes spent a little longer on the market than they did this spring. In plain terms: buyers have a bit more room to breathe, and well-priced homes are still moving.\n\nCurious what your Nocatee home would list for in today's market? Send me a DM and I'll run the numbers for you.\n\nVeronica Wilen, Realtor · Christie's International Real Estate First Coast",
-        "instagram": "Nocatee's June market snapshot 📊\n\nMedian price steady. Homes taking a touch longer to sell. Well-priced listings still moving.\n\nWondering what that means for YOUR home? DM me and I'll break it down.\n\n#Nocatee #NocateeRealEstate #PonteVedraBeach #StJohnsCounty #NortheastFlorida #realtor #housingmarket #NocateeLife"
+        "facebook": "St. Johns County market update: June 2026\n\nThe June numbers are in. Home values remain strong, with a median sales price of $579,000, while inventory keeps growing, giving buyers more choices. Well-priced homes are still selling, but smart pricing matters more than ever.\n\nWondering what your home is worth in today's market? I'd be happy to run a complimentary home value analysis. Send me a message!\n\nVeronica Wilen, Realtor\nChristie's International Real Estate | First Coast",
+        "instagram": null
       },
-      "flags": ["VERIFY June median price + DOM before posting"],
-      "needs": null
+      "flags": [],
+      "needs": "Instagram version still needs a market-stat graphic/reel from Veronica before it can post."
     },
     {
       "id": "2026-07-13-lifestyle",
@@ -34,8 +35,8 @@
       "platforms": ["facebook", "instagram"],
       "pillar": "lifestyle",
       "hook": "What it's actually like to live in Nocatee",
-      "status": "proposed",
-      "media": { "type": "image", "label": "Needs a photo (Splash Water Park or greenway)" },
+      "status": "scheduled",
+      "media": { "type": "image", "label": "Nocatee Life Instagram Post - July.png (Drive)" },
       "captions": {
         "facebook": "People ask me all the time what it's really like to live in Nocatee. Here's the short version.\n\nGolf carts to dinner. Miles of greenway trails. A water park the whole neighborhood treats like a backyard. And a farmers market that turns Saturday mornings into a community event.\n\nIt feels less like a subdivision and more like a small town that happens to be brand new.\n\nThinking about a move to the area? I've lived here since 2016, so ask me anything. 👇",
         "instagram": "Living in Nocatee, in one post 🌴\n\n🚗 Golf carts everywhere\n🌳 Miles of greenway trails\n💦 Splash & Spray water parks\n🥕 Saturday farmers market\n\nI've called Nocatee home since 2016. Questions about the area? Drop them below.\n\n#Nocatee #NocateeLife #PonteVedraBeach #StJohnsCounty #FloridaLiving #MasterPlannedCommunity #realtor #relocation"
@@ -62,14 +63,14 @@
       "time": "9:00 AM ET",
       "platforms": ["facebook", "instagram"],
       "pillar": "development",
-      "hook": "What's being built in St. Johns County right now",
-      "status": "proposed",
-      "media": { "type": "image", "label": "Needs a photo (new construction or map graphic)" },
+      "hook": "A proposed park and library for Nocatee",
+      "status": "scheduled",
+      "media": { "type": "image", "label": "library-rendering-social-1.png (Drive)" },
       "captions": {
-        "facebook": "St. Johns County keeps growing, and if you're buying or selling here the new development matters.\n\nA few things on my radar right now: continued build-out around Nocatee's Town Center, new retail along CR-210, and road improvements meant to ease the commute north.\n\nMore rooftops and amenities tend to support home values over time, though the details vary block by block. Wondering how it affects your street specifically? Let's talk.",
-        "instagram": "St. Johns County is still booming 🏗️\n\nOn my radar: Nocatee Town Center growth, new retail on CR-210, and road upgrades to ease the drive north.\n\nWhat it means for your home value depends on your exact neighborhood. Questions? DM me.\n\n#StJohnsCounty #Nocatee #PonteVedraBeach #NortheastFlorida #realestate #community #904"
+        "facebook": "St. Johns County has a proposed site plan out for a new park and library near Nocatee Parkway, and it's worth a look if you're in the area.\n\nFrom what's been shared: ball fields, a walking path, a playground, an outdoor classroom, a book drop off, and soccer fields, all built around the planned library.\n\nNothing is finalized yet, but it's a sign of how much this corner of St. Johns County keeps investing in community space. I'll share more as plans firm up.\n\nCurious how growth like this could affect your home's value? Let's talk.",
+        "instagram": "A new park + library may be coming to Nocatee 📚🌳\n\nProposed site plan includes:\n⚾ Ball fields\n🚶 Walking path\n🛝 Playground\n📖 Outdoor classroom + book drop off\n⚽ Soccer fields\n\nStill in the planning stage, but exciting for the area. More updates as they come.\n\n#Nocatee #StJohnsCounty #PonteVedraBeach #NortheastFlorida #NocateeLife #CommunityGrowth #904 #realestate"
       },
-      "flags": ["VERIFY current development details before posting"],
+      "flags": [],
       "needs": null
     },
     {
