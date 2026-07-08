@@ -336,6 +336,8 @@ async function submitReview(postId, status) {
 }
 
 function reviewInfo(p) {
+  // Once a post is scheduled/posted, the review decision is moot — don't show a stale tag.
+  if (p.status === "scheduled" || p.status === "posted") return null;
   const r = REVIEWS[p.id];
   if (r && r.status === "approved") return { label: "✓ Approved", color: cssVar("--approve"), bg: "rgba(47,143,106,.14)" };
   if (r && r.status === "change-requested") return { label: "✎ Change requested", color: cssVar("--change"), bg: "rgba(201,130,42,.14)" };
@@ -418,7 +420,7 @@ function renderCalendar() {
       const isToday = ds === todayStr;
       const chips = (map[ds] || []).map(p => {
         const plats = p.platforms.map(pl => PLATFORMS[pl]?.a).join(" · ");
-        const r = REVIEWS[p.id];
+        const r = (p.status === "scheduled" || p.status === "posted") ? null : REVIEWS[p.id];
         const tick = r && r.status === "approved" ? "✓" : r && r.status === "change-requested" ? "✎" : "";
         return `<button class="chip" style="background:${pillarColor(p.pillar)}" onclick="openPost('${p.id}')">
                   ${tick ? `<span class="rev-tick">${tick}</span>` : ""}${p.hook}<span class="plat">${plats}</span></button>`;
