@@ -44,7 +44,10 @@ The site reads this one file. Keep it valid JSON matching this shape:
 
 Rules:
 - **`status` drives everything.** `needs-input` posts surface in the "Needs from you" panel — always
-  fill `needs` with a plain-English ask ("Drop the listing in the Drive folder", "Send the YouTube URL").
+  fill `needs` with a short, plain-English ask written **directly to Veronica** ("Drop the listing
+  in the Drive folder", "Send the YouTube URL"). She's the one reading this on the live dashboard,
+  not Steven or Claude — don't explain internal system logic she already knows (e.g. don't add
+  "the system builds the reel automatically" or "we never post to her YouTube"). Just the ask.
 - `proposed` = drafted, awaiting Veronica's approval. `scheduled` = on the Blotato calendar.
   `posted` = live. Move a post's status forward as it progresses.
 - Captions can be `null` when not written yet (blocked posts) — the site shows a placeholder.

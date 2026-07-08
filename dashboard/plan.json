@@ -54,7 +54,7 @@
       "media": { "type": "reel", "label": "Branded reel, auto-built from listing photos" },
       "captions": { "facebook": null, "instagram": null },
       "flags": [],
-      "needs": "Drop the new listing in the 'Steven – Social Media Listings' Drive folder: photos plus a short note (address, price, beds/baths, sqft, status, highlights). The system builds the reel and captions automatically."
+      "needs": "Drop the new listing in your Drive folder: photos plus a short note with the address, price, beds/baths, sqft, status, and highlights."
     },
     {
       "id": "2026-07-20-development",
@@ -83,7 +83,7 @@
       "media": { "type": "video", "label": "From a YouTube URL (Blotato scrapes the transcript)" },
       "captions": { "facebook": null, "instagram": null },
       "flags": [],
-      "needs": "If she wants to repurpose a video, send the YouTube URL and the system will write Facebook + Instagram posts from it. (We never post to her YouTube; she runs that herself.)"
+      "needs": "Want to repurpose a video? Send over the YouTube URL."
     },
     {
       "id": "2026-07-24-community",
@@ -99,7 +99,7 @@
         "instagram": "Weekend on the First Coast? ☀️\n\n🎣 Beach morning\n🍤 Dinner in old St. Augustine\n🎶 Live music at Nocatee Town Center\n\nWhat's your go-to around here? 👇\n\n#StAugustine #Nocatee #PonteVedraBeach #FirstCoast #FloridaLiving #thingstodo #904 #NortheastFlorida"
       },
       "flags": ["VERIFY specific events/dates before posting"],
-      "needs": "Drop a photo (beach, St. Augustine historic district, or Nocatee Town Center) in the Drive folder so this post can go out."
+      "needs": "Drop a photo (beach, St. Augustine historic district, or Nocatee Town Center) in the Drive folder."
     }
   ]
 }
